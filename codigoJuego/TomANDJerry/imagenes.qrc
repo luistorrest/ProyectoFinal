@@ -1,0 +1,16 @@
+<RCC>
+    <qresource prefix="/">
+        <file>ImagenesJuego/Enemigo/spike2-removebg-preview.png</file>
+        <file>ImagenesJuego/Icono/cerrar.png</file>
+        <file>ImagenesJuego/Icono/guardar.png</file>
+        <file>ImagenesJuego/Icono/informacionEnemigo.png</file>
+        <file>ImagenesJuego/Icono/informacionJuego.png</file>
+        <file>ImagenesJuego/Icono/menu.png</file>
+        <file>ImagenesJuego/Icono/play.png</file>
+        <file>ImagenesJuego/Icono/reiniciar.png</file>
+        <file>ImagenesJuego/Icono/stop.png</file>
+        <file>ImagenesJuego/Otros/Distancia.png</file>
+        <file>ImagenesJuego/Otros/Vidas.png</file>
+        <file>ImagenesJuego/Otros/Moneda.png</file>
+    </qresource>
+</RCC>
