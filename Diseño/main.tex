@@ -48,7 +48,8 @@
 \section{Desripción principal}\label{Descripcion}
 \noindent
 En este informe presentaremos el diseño de nuestro proyecto como las clases y la forma en que interactuan enrtre sí, por otro lado tambien encontraremos un cronocrama que es donde se irá detallando la planificación semana a semana para el desarrollo del videojuego. 
-El proyecto se trata de un video juego desarrollado en el lenguaje C++ utilizando el framework de Qt y aplicando la programación orientada a objetos, el videojuego a realizar estará basado en la conocida caricatura infantil Tom y Jerry. 
+El proyecto se trata de un video juego desarrollado en el lenguaje C++ utilizando el framework de Qt y aplicando la programación orientada a objetos, el videojuego a realizar estará basado en la conocida caricatura infantil Tom y Jerry. Todos los sprites y recursos gráficos son tomados de páginas libres tales como The spriters resguard\cite{sprite},PNGWING \cite{monedas} y flaticon \cite{iconos}.
+
 
 \section{Modelamiento de los objetos} \label{ideas}
 \noindent
@@ -63,7 +64,7 @@ Esta es una clase la cual  tiene la función de mostrar a los usuarios del juego
 
 
 \item\noindent\textbf{mostrarEnemigo} : 
-Esta clase tiene todos los audios e imagenes que tienen los enemigos, en este caso "Spike" el perro Bulldog de la serie animada Tom y Jerry. Esta clase va asociada con un botón que tiene como objetivo mostrar al usuario del juego toda la información sobre la dinámica de funcionamiento del perro. Como métodos esta clase tiene algunos que permiten  visualizar como es cada uno de los enemigos y ibjetos que generan perdidas de vida.\\
+Esta clase tiene todos los audios e imagenes que tienen los enemigos, en este caso Spike el perro Bulldog de la serie animada Tom y Jerry. Esta clase va asociada con un botón que tiene como objetivo mostrar al usuario del juego toda la información sobre la dinámica de funcionamiento del perro. Como métodos esta clase tiene algunos que permiten  visualizar como es cada uno de los enemigos y ibjetos que generan perdidas de vida.\\
 
 \item\noindent\textbf{menú}: 
 En esta clase se coloca se carga la música y las imagenes del juego antes de iniciar. Se da a escoger la opción para jugador único o multijugador, ademas se colocan los botones para información y mostrarEnemigos. Los métodos que van asociados a esta clase son todos aquellos que hacen llamada a las diferentes opciones del juego, donde a su vez se inicializan todas los contenedores que guardan a los enemigos, obstaculos y personajes del juego, Además se inicializa el archivo donde se guardan los datos de las personas que estan jugando y su puntaje.\\
@@ -95,4 +96,6 @@ Esta clase será utilizada para que el jugador por medio del mouse, seleccione c
     \label{f2}
     \end{figure}
 
+\bibliographystyle{IEEEtran}\\
+\bibliography{references}
 \end{document}
