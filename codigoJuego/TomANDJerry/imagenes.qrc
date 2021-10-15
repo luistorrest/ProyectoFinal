@@ -12,5 +12,9 @@
         <file>ImagenesJuego/Otros/Distancia.png</file>
         <file>ImagenesJuego/Otros/Vidas.png</file>
         <file>ImagenesJuego/Otros/Moneda.png</file>
+        <file>ImagenesJuego/Otros/Hueso.png</file>
+        <file>ImagenesJuego/Otros/spyke.png</file>
+        <file>ImagenesJuego/Otros/trampa.png</file>
+        <file>ImagenesJuego/Otros/tyke.png</file>
     </qresource>
 </RCC>
