@@ -20,15 +20,15 @@ public:
     int contador=2;
 
 private slots:
-    void on_pushButton_clicked();
+    void on_pushButton_clicked();//slot para el boton siguiente
 
-    void on_BotonTyke_clicked();
+    void on_BotonTyke_clicked();//slot para el boton de Tyke
 
-    void on_BotonHueso_clicked();
+    void on_BotonHueso_clicked();//slot para el boton de hueso
 
-    void on_BotonTrampa_clicked();
+    void on_BotonTrampa_clicked();//slot para el boton de la trampa
 
-    void on_BotonSpyke_clicked();
+    void on_BotonSpyke_clicked();//slot para el boton de Spyke
 
 private:
     Ui::mostrarenemigos *ui;

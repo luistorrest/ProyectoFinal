@@ -5,19 +5,19 @@ mostrarenemigos::mostrarenemigos(QWidget *parent) :QDialog(parent),ui(new Ui::mo
 {
     ui->setupUi(this);
     tyke= new QMediaPlayer(this);//
-    tyke->setMedia(QUrl("qrc:/MusicaJuego/Tortuga.mp3"));
+    tyke->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
 
     hueso= new QMediaPlayer(this);
-    hueso->setMedia(QUrl("qrc:/MusicaJuego/rasengan.mp3"));
+    hueso->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
 
     trampa= new QMediaPlayer(this);
-    trampa->setMedia(QUrl("qrc:/MusicaJuego/Rayo.mp3"));
+    trampa->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
 
     spyke= new QMediaPlayer(this);
-    spyke->setMedia(QUrl("qrc:/MusicaJuego/Boss.mp3"));
+    spyke->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
 
     click= new QMediaPlayer(this);
-    click->setMedia(QUrl("qrc:/MusicaJuego/click.mp3"));
+    click->setMedia(QUrl("qrc:/sonidos/sonidos/pagina.wav"));
 
     ui->text2->hide();
     ui->text3->hide();
@@ -26,7 +26,6 @@ mostrarenemigos::mostrarenemigos(QWidget *parent) :QDialog(parent),ui(new Ui::mo
     ui->BotonHueso->hide();
     ui->BotonTrampa->hide();
     ui->BotonSpyke->hide();
-
 
 
 }

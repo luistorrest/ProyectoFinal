@@ -15,6 +15,9 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+    //Quitar y borrar elementos
+    bool cargar;
+
 private:
     Ui::MainWindow *ui;
 };

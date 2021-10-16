@@ -12,19 +12,27 @@ CONFIG += c++11
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    mostrarenemigos.cpp\
+    menu.cpp \
+    mostrarenemigos.cpp
+
 
 
 
 HEADERS += \
     mainwindow.h \
-    mostrarenemigos.h\
+    menu.h \
+    mostrarenemigos.h
+
+
 
 
 
 FORMS += \
     mainwindow.ui \
-    mostrarenemigos.ui\
+    menu.ui \
+    mostrarenemigos.ui
+
+
 
 
 
@@ -34,6 +42,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 RESOURCES += \
-    Imagenes.qrc
+    Imagenes.qrc \
+    sonidos.qrc
 
 DISTFILES +=

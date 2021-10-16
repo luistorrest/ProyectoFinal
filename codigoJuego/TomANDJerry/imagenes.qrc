@@ -16,5 +16,8 @@
         <file>ImagenesJuego/Otros/spyke.png</file>
         <file>ImagenesJuego/Otros/trampa.png</file>
         <file>ImagenesJuego/Otros/tyke.png</file>
+        <file>ImagenesJuego/Otros/queso.png</file>
+        <file>ImagenesJuego/Otros/fondoMenu.png</file>
     </qresource>
+    <qresource prefix="/sonidos"/>
 </RCC>
