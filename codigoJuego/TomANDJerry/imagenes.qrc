@@ -18,6 +18,8 @@
         <file>ImagenesJuego/Otros/tyke.png</file>
         <file>ImagenesJuego/Otros/queso.png</file>
         <file>ImagenesJuego/Otros/fondoMenu.png</file>
+        <file>ImagenesJuego/Fondos/fondoMenu.png</file>
+        <file>ImagenesJuego/Fondos/504.jpg</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

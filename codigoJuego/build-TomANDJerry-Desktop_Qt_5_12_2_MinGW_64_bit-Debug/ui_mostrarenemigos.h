@@ -43,7 +43,7 @@ public:
         mostrarenemigos->resize(561, 441);
         BotonTyke = new QPushButton(mostrarenemigos);
         BotonTyke->setObjectName(QString::fromUtf8("BotonTyke"));
-        BotonTyke->setGeometry(QRect(160, 220, 211, 141));
+        BotonTyke->setGeometry(QRect(120, 180, 261, 201));
         BotonTyke->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon;
         icon.addFile(QString::fromUtf8(":/ImagenesJuego/Otros/tyke.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -52,7 +52,7 @@ public:
         BotonTyke->setFlat(true);
         BotonHueso = new QPushButton(mostrarenemigos);
         BotonHueso->setObjectName(QString::fromUtf8("BotonHueso"));
-        BotonHueso->setGeometry(QRect(140, 220, 331, 151));
+        BotonHueso->setGeometry(QRect(100, 180, 331, 171));
         BotonHueso->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon1;
         icon1.addFile(QString::fromUtf8(":/ImagenesJuego/Otros/Hueso.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -83,7 +83,7 @@ public:
         text2->setGeometry(QRect(10, 10, 521, 371));
         BotonSpyke = new QPushButton(mostrarenemigos);
         BotonSpyke->setObjectName(QString::fromUtf8("BotonSpyke"));
-        BotonSpyke->setGeometry(QRect(210, 230, 261, 141));
+        BotonSpyke->setGeometry(QRect(90, 150, 341, 221));
         BotonSpyke->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon2;
         icon2.addFile(QString::fromUtf8(":/ImagenesJuego/Otros/spyke.png"), QSize(), QIcon::Normal, QIcon::Off);
@@ -106,26 +106,26 @@ public:
         label_3->setScaledContents(true);
         BotonTrampa = new QPushButton(mostrarenemigos);
         BotonTrampa->setObjectName(QString::fromUtf8("BotonTrampa"));
-        BotonTrampa->setGeometry(QRect(150, 240, 331, 121));
+        BotonTrampa->setGeometry(QRect(80, 200, 341, 151));
         BotonTrampa->setCursor(QCursor(Qt::PointingHandCursor));
         QIcon icon3;
         icon3.addFile(QString::fromUtf8(":/ImagenesJuego/Otros/trampa.png"), QSize(), QIcon::Normal, QIcon::Off);
         BotonTrampa->setIcon(icon3);
         BotonTrampa->setIconSize(QSize(310, 114));
         BotonTrampa->setFlat(true);
-        BotonTrampa->raise();
-        BotonSpyke->raise();
-        BotonHueso->raise();
-        text4->raise();
-        text3->raise();
-        text2->raise();
         label_4->raise();
         label->raise();
         pushButton->raise();
-        text1->raise();
         label_2->raise();
         label_3->raise();
+        text1->raise();
         BotonTyke->raise();
+        text2->raise();
+        BotonHueso->raise();
+        text3->raise();
+        BotonTrampa->raise();
+        text4->raise();
+        BotonSpyke->raise();
 
         retranslateUi(mostrarenemigos);
 

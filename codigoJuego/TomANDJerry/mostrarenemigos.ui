@@ -16,10 +16,10 @@
   <widget class="QPushButton" name="BotonTyke">
    <property name="geometry">
     <rect>
-     <x>160</x>
-     <y>220</y>
-     <width>211</width>
-     <height>141</height>
+     <x>120</x>
+     <y>180</y>
+     <width>261</width>
+     <height>201</height>
     </rect>
    </property>
    <property name="cursor">
@@ -48,10 +48,10 @@
   <widget class="QPushButton" name="BotonHueso">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>220</y>
+     <x>100</x>
+     <y>180</y>
      <width>331</width>
-     <height>151</height>
+     <height>171</height>
     </rect>
    </property>
    <property name="cursor">
@@ -193,10 +193,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QPushButton" name="BotonSpyke">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>230</y>
-     <width>261</width>
-     <height>141</height>
+     <x>90</x>
+     <y>150</y>
+     <width>341</width>
+     <height>221</height>
     </rect>
    </property>
    <property name="cursor">
@@ -287,10 +287,10 @@ p, li { white-space: pre-wrap; }
   <widget class="QPushButton" name="BotonTrampa">
    <property name="geometry">
     <rect>
-     <x>150</x>
-     <y>240</y>
-     <width>331</width>
-     <height>121</height>
+     <x>80</x>
+     <y>200</y>
+     <width>341</width>
+     <height>151</height>
     </rect>
    </property>
    <property name="cursor">
@@ -313,19 +313,19 @@ p, li { white-space: pre-wrap; }
     <bool>true</bool>
    </property>
   </widget>
-  <zorder>BotonTrampa</zorder>
-  <zorder>BotonSpyke</zorder>
-  <zorder>BotonHueso</zorder>
-  <zorder>text4</zorder>
-  <zorder>text3</zorder>
-  <zorder>text2</zorder>
   <zorder>label_4</zorder>
   <zorder>label</zorder>
   <zorder>pushButton</zorder>
-  <zorder>text1</zorder>
   <zorder>label_2</zorder>
   <zorder>label_3</zorder>
+  <zorder>text1</zorder>
   <zorder>BotonTyke</zorder>
+  <zorder>text2</zorder>
+  <zorder>BotonHueso</zorder>
+  <zorder>text3</zorder>
+  <zorder>BotonTrampa</zorder>
+  <zorder>text4</zorder>
+  <zorder>BotonSpyke</zorder>
  </widget>
  <resources>
   <include location="Imagenes.qrc"/>
