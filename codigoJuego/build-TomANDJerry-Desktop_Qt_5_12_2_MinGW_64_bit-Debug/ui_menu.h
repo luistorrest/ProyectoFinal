@@ -47,7 +47,7 @@ public:
         if (Menu->objectName().isEmpty())
             Menu->setObjectName(QString::fromUtf8("Menu"));
         Menu->setEnabled(true);
-        Menu->resize(1481, 846);
+        Menu->resize(1422, 812);
         QFont font;
         font.setFamily(QString::fromUtf8("MS Gothic"));
         Menu->setFont(font);
@@ -72,7 +72,7 @@ public:
         label = new QLabel(centralwidget);
         label->setObjectName(QString::fromUtf8("label"));
         label->setEnabled(true);
-        label->setGeometry(QRect(49, 10, 1281, 711));
+        label->setGeometry(QRect(50, 30, 1271, 561));
         QSizePolicy sizePolicy(QSizePolicy::Fixed, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
@@ -163,7 +163,7 @@ public:
         label->setAlignment(Qt::AlignJustify|Qt::AlignVCenter);
         UnJugador = new QPushButton(centralwidget);
         UnJugador->setObjectName(QString::fromUtf8("UnJugador"));
-        UnJugador->setGeometry(QRect(40, 620, 431, 70));
+        UnJugador->setGeometry(QRect(50, 510, 431, 70));
         QPalette palette1;
         QBrush brush9(QColor(255, 0, 0, 255));
         brush9.setStyle(Qt::SolidPattern);
@@ -206,7 +206,7 @@ public:
         UnJugador->setFlat(true);
         Multijugador = new QPushButton(centralwidget);
         Multijugador->setObjectName(QString::fromUtf8("Multijugador"));
-        Multijugador->setGeometry(QRect(510, 620, 351, 70));
+        Multijugador->setGeometry(QRect(500, 510, 351, 70));
         QPalette palette2;
         palette2.setBrush(QPalette::Active, QPalette::ButtonText, brush9);
         palette2.setBrush(QPalette::Inactive, QPalette::ButtonText, brush9);
@@ -220,7 +220,7 @@ public:
         Multijugador->setFlat(true);
         line = new QFrame(centralwidget);
         line->setObjectName(QString::fromUtf8("line"));
-        line->setGeometry(QRect(43, -1, 1291, 21));
+        line->setGeometry(QRect(43, 16, 1288, 21));
         QPalette palette3;
         QBrush brush12(QColor(255, 255, 255, 255));
         brush12.setStyle(Qt::SolidPattern);
@@ -287,7 +287,7 @@ public:
         line->setFrameShape(QFrame::HLine);
         line_2 = new QFrame(centralwidget);
         line_2->setObjectName(QString::fromUtf8("line_2"));
-        line_2->setGeometry(QRect(1319, 9, 20, 719));
+        line_2->setGeometry(QRect(1316, 30, 20, 561));
         QPalette palette4;
         palette4.setBrush(QPalette::Active, QPalette::WindowText, brush12);
         palette4.setBrush(QPalette::Active, QPalette::Button, brush);
@@ -350,7 +350,7 @@ public:
         line_2->setFrameShadow(QFrame::Sunken);
         line_3 = new QFrame(centralwidget);
         line_3->setObjectName(QString::fromUtf8("line_3"));
-        line_3->setGeometry(QRect(50, 715, 1281, 16));
+        line_3->setGeometry(QRect(43, 588, 1288, 16));
         QPalette palette5;
         palette5.setBrush(QPalette::Active, QPalette::WindowText, brush12);
         palette5.setBrush(QPalette::Active, QPalette::Button, brush);
@@ -413,7 +413,7 @@ public:
         line_3->setFrameShadow(QFrame::Sunken);
         line_4 = new QFrame(centralwidget);
         line_4->setObjectName(QString::fromUtf8("line_4"));
-        line_4->setGeometry(QRect(38, 7, 20, 721));
+        line_4->setGeometry(QRect(38, 30, 20, 561));
         QPalette palette6;
         palette6.setBrush(QPalette::Active, QPalette::WindowText, brush12);
         palette6.setBrush(QPalette::Active, QPalette::Button, brush);
@@ -476,7 +476,7 @@ public:
         line_4->setFrameShadow(QFrame::Sunken);
         pushButton = new QPushButton(centralwidget);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
-        pushButton->setGeometry(QRect(920, 620, 361, 70));
+        pushButton->setGeometry(QRect(910, 520, 361, 70));
         QPalette palette7;
         palette7.setBrush(QPalette::Active, QPalette::ButtonText, brush9);
         palette7.setBrush(QPalette::Inactive, QPalette::ButtonText, brush9);
@@ -496,7 +496,7 @@ public:
         Menu->setCentralWidget(centralwidget);
         menuBar = new QMenuBar(Menu);
         menuBar->setObjectName(QString::fromUtf8("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 1481, 34));
+        menuBar->setGeometry(QRect(0, 0, 1422, 34));
         QFont font4;
         font4.setFamily(QString::fromUtf8("Schadow BT"));
         font4.setPointSize(18);
