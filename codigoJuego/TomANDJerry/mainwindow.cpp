@@ -11,7 +11,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //Mapa
     QPixmap fondo;
-    fondo.load(":/ImagenesJuego/Fondos/fondoprueba2.jpeg");
+    fondo.load(":/ImagenesJuego/Fondos/fondoJuego.png");
 
     //crear la escena
     scene=new QGraphicsScene(this);

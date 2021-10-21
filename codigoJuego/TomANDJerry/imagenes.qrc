@@ -33,6 +33,7 @@
         <file>ImagenesJuego/Otros/PlayJerry.png</file>
         <file>ImagenesJuego/Otros/PlayTom.png</file>
         <file>ImagenesJuego/Otros/IniciarPartida.png</file>
+        <file>ImagenesJuego/Fondos/fondoJuego.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>
