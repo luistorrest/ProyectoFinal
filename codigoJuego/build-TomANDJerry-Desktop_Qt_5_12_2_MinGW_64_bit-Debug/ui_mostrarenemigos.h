@@ -78,6 +78,7 @@ public:
         pushButton = new QPushButton(mostrarenemigos);
         pushButton->setObjectName(QString::fromUtf8("pushButton"));
         pushButton->setGeometry(QRect(420, 390, 111, 41));
+        pushButton->setCursor(QCursor(Qt::OpenHandCursor));
         text2 = new QTextBrowser(mostrarenemigos);
         text2->setObjectName(QString::fromUtf8("text2"));
         text2->setGeometry(QRect(10, 10, 521, 371));
@@ -148,9 +149,9 @@ public:
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; color:#363636;\"><br /></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; font-weight:600; color:#3"
                         "63636;\">TRAMPAS</span><span style=\" font-size:12pt; font-weight:600; color:#363636;\">:</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; color:#363636;\">Las trampas son objetos que encontrar\303\241s repentinamente en el camino quieren golpearte tan fuerte que te har\303\241n quedar con</span><span style=\" font-size:14pt; font-weight:600; color:#363636;\"> 0 VIDAS</span><span style=\" font-size:14pt; color:#363636;\">, estos objetos aparecer\303\241n a partir del </span><span style=\" font-size:14pt; font-weight:600; color:#363636;\">nivel 2</span><span style=\" font-size:14pt; color:#363636;\">, </span><span style=\" font-size:14pt; font-weight:600; color:#363636;\">ten cuidado!!!</span><span style=\" font-size:14pt; color:#363636;\">.</span></p>\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-"
-                        "size:8pt; color:#363636;\">		</span></p>\n"
+"<p align=\"justify\" style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:14pt; color:#363636;\">Las trampas son objetos que encontrar\303\241s repentinamente en el camino quieren golpearte tan fuerte que te har\303\241n quedar con</span><span style=\" font-size:14pt; font-weight:600; color:#363636;\"> 0 VIDAS</span><span style=\" font-size:14pt; color:#363636;\">, estos objetos aparecer\303\241n a partir del </span><span style=\" font-size:14pt; font-weight:600; color:#363636;\">nivel 2</span><span style=\" font-size:14pt; color:#363636;\">, </span><span style=\" font-size:14pt; font-weight:600; color:#363636;\">ten cuidado!!!</span><span style=\" font-size:14pt; color:#363636;\">.</span></p>\n"
+"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><s"
+                        "pan style=\" font-size:8pt; color:#363636;\">		</span></p>\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">                                   <span style=\" font-size:8pt; color:#363636;\"> 	                       </span><span style=\" color:#363636;\">		                   </span></p></body></html>", nullptr));
         label_4->setText(QString());
         label->setText(QString());

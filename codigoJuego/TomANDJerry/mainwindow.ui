@@ -504,6 +504,9 @@
       <height>81</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
     <property name="frameShape">
      <enum>QFrame::WinPanel</enum>
     </property>
@@ -531,6 +534,9 @@
       <width>81</width>
       <height>81</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
     </property>
     <property name="text">
      <string/>
@@ -569,6 +575,9 @@
       <width>221</width>
       <height>81</height>
      </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
@@ -620,6 +629,9 @@
       <height>81</height>
      </rect>
     </property>
+    <property name="cursor">
+     <cursorShape>ForbiddenCursor</cursorShape>
+    </property>
     <property name="frameShape">
      <enum>QFrame::WinPanel</enum>
     </property>
@@ -636,9 +648,9 @@
    <widget class="Line" name="line">
     <property name="geometry">
      <rect>
-      <x>123</x>
-      <y>5</y>
-      <width>1051</width>
+      <x>113</x>
+      <y>7</y>
+      <width>1069</width>
       <height>16</height>
      </rect>
     </property>
@@ -648,8 +660,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -794,8 +806,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1112,8 +1124,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1258,8 +1270,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1564,10 +1576,10 @@
    <widget class="Line" name="line_3">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>113</x>
       <y>510</y>
-      <width>1061</width>
-      <height>21</height>
+      <width>1070</width>
+      <height>23</height>
      </rect>
     </property>
     <property name="palette">
@@ -1576,8 +1588,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1587,8 +1599,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1635,8 +1647,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1673,8 +1685,8 @@
        <colorrole role="WindowText">
         <brush brushstyle="SolidPattern">
          <color alpha="255">
-          <red>0</red>
-          <green>0</green>
+          <red>170</red>
+          <green>85</green>
           <blue>0</blue>
          </color>
         </brush>
@@ -1797,6 +1809,9 @@
    <addaction name="menuWar_Fly"/>
   </widget>
   <widget class="QToolBar" name="toolBar">
+   <property name="cursor">
+    <cursorShape>PointingHandCursor</cursorShape>
+   </property>
    <property name="windowTitle">
     <string>toolBar</string>
    </property>
