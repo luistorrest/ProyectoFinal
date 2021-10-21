@@ -13,15 +13,19 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     menu.cpp \
-    mostrarenemigos.cpp
-
-
+    mostrarenemigos.cpp \
+    mostrarpersonaje.cpp \
+    moverpersonaje.cpp \
+    opcion.cpp
 
 
 HEADERS += \
     mainwindow.h \
     menu.h \
-    mostrarenemigos.h
+    mostrarenemigos.h \
+    mostrarpersonaje.h \
+    moverpersonaje.h \
+    opcion.h
 
 
 
@@ -30,7 +34,8 @@ HEADERS += \
 FORMS += \
     mainwindow.ui \
     menu.ui \
-    mostrarenemigos.ui
+    mostrarenemigos.ui \
+    opcion.ui
 
 
 

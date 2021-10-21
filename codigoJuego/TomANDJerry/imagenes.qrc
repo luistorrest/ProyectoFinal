@@ -20,6 +20,16 @@
         <file>ImagenesJuego/Otros/fondoMenu.png</file>
         <file>ImagenesJuego/Fondos/fondoMenu.png</file>
         <file>ImagenesJuego/Fondos/504.jpg</file>
+        <file>ImagenesJuego/Fondos/fondoprueba.png</file>
+        <file>ImagenesJuego/Fondos/fondoprueba2.jpeg</file>
+        <file>ImagenesJuego/Tom/Tom1.png</file>
+        <file>ImagenesJuego/Tom/Tom2.png</file>
+        <file>ImagenesJuego/Tom/Tom3.png</file>
+        <file>ImagenesJuego/Tom/Tom4.png</file>
+        <file>ImagenesJuego/Jerry/Jerry1.png</file>
+        <file>ImagenesJuego/Jerry/Jerry2.png</file>
+        <file>ImagenesJuego/Jerry/Jerry3.png</file>
+        <file>ImagenesJuego/Jerry/Jerry4.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

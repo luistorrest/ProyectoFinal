@@ -421,6 +421,7 @@ public:
         MainWindow->setMenuBar(menuBar);
         toolBar = new QToolBar(MainWindow);
         toolBar->setObjectName(QString::fromUtf8("toolBar"));
+        toolBar->setLayoutDirection(Qt::RightToLeft);
         toolBar->setIconSize(QSize(40, 30));
         MainWindow->addToolBar(Qt::TopToolBarArea, toolBar);
 
