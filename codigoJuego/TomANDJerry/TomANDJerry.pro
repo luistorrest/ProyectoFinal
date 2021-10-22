@@ -14,6 +14,7 @@ SOURCES += \
     mainwindow.cpp \
     menu.cpp \
     mostrarenemigos.cpp \
+    mostrarobstaculos.cpp \
     mostrarpersonaje.cpp \
     moverobstaculos.cpp \
     moverpersonaje.cpp \
@@ -24,6 +25,7 @@ HEADERS += \
     mainwindow.h \
     menu.h \
     mostrarenemigos.h \
+    mostrarobstaculos.h \
     mostrarpersonaje.h \
     moverobstaculos.h \
     moverpersonaje.h \

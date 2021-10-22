@@ -18,11 +18,15 @@
 #include <QFileDialog>
 #include <QMediaPlayer>
 
-using namespace std;
 #include "mostrarpersonaje.h"
+#include "moverpersonaje.h"
+
+#include "mostrarobstaculos.h"
+#include "moverobstaculos.h"
+
 #define dt 0.02
 
-
+using namespace std;
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
@@ -55,6 +59,9 @@ public:
     bool Multiplayer=false;
     bool jugador2;
 
+    QList<float> mon;
+    QList<float> vid;
+
     float posX=0;
     float posY=0;
 
@@ -70,8 +77,17 @@ private slots:
     void on_actionDetener_triggered();
     void on_actionIniciar_triggered();
     void on_actionReincicar_triggered();
+    void actualizar();
     void actualizar2();
     void on_actionGuardar_triggered();
+
+    //vidas y monedas
+    void VidasAleatorias(void);
+    void MonedasAleatorias(void);
+
+    void on_Vida_overflow();
+    void on_Distancia_overflow();
+    void on_Monedas_overflow();
 
 private:
     Ui::MainWindow *ui;
@@ -80,6 +96,18 @@ private:
     QGraphicsScene *scene;
     QLine *linea;   
     mostrarPersonaje *personaje;//puntero para mostrar graficamente el personaje
+
+    //tiempos para vidas y monedas
+    QTimer *TiempoVida;
+    QTimer *TiempoMonedas;
+
+    //Lista para los objetos
+    QList<mostrarobstaculos*> vida;
+    QList<mostrarobstaculos*> monedas;
+
+    //contadores para la cantidad de objetos
+    int numeroVidas;
+    int numeromonedas;
 
     //multijugador
     bool dosjugadores,ban=false,ban1=false;//

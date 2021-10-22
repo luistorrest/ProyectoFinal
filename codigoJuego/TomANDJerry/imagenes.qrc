@@ -34,6 +34,14 @@
         <file>ImagenesJuego/Otros/PlayTom.png</file>
         <file>ImagenesJuego/Otros/IniciarPartida.png</file>
         <file>ImagenesJuego/Fondos/fondoJuego.png</file>
+        <file>ImagenesJuego/vidas/Vida1.png</file>
+        <file>ImagenesJuego/vidas/Vida2.png</file>
+        <file>ImagenesJuego/vidas/Vida3.png</file>
+        <file>ImagenesJuego/vidas/vida4.png</file>
+        <file>ImagenesJuego/monedas/moneda2.png</file>
+        <file>ImagenesJuego/monedas/moneda1.png</file>
+        <file>ImagenesJuego/monedas/moneda3.png</file>
+        <file>ImagenesJuego/monedas/moneda4.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>
