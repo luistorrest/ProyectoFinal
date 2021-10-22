@@ -15,6 +15,7 @@ SOURCES += \
     menu.cpp \
     mostrarenemigos.cpp \
     mostrarpersonaje.cpp \
+    moverobstaculos.cpp \
     moverpersonaje.cpp \
     opcion.cpp
 
@@ -24,6 +25,7 @@ HEADERS += \
     menu.h \
     mostrarenemigos.h \
     mostrarpersonaje.h \
+    moverobstaculos.h \
     moverpersonaje.h \
     opcion.h
 
