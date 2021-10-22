@@ -4,12 +4,10 @@
 
 class moverobstaculos
 {
-private:
-    float px,py,vx,vy,ay,ax;
 
 public:
 
-    //constructor
+    //construct
     moverobstaculos(float x, float y);
 
     //metodos
@@ -25,7 +23,8 @@ public:
     float getVx() const;
     void setVel(float x, float y);
 
-
+private:
+    float px,py,vx,vy,ay,ax;
 
 
 };
