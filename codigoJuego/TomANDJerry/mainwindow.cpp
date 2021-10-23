@@ -33,11 +33,20 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     fondoSound1=new QMediaPlayer(this);
     fondoSound1->setMedia(QUrl("qrc:/sonidos/sonidos/Niveles1_2.mp3"));
-    fondoSound1->setVolume(70);
+    fondoSound1->setVolume(15);
 
     fondoSound2=new QMediaPlayer(this);
     fondoSound2->setMedia(QUrl("qrc:/sonidos/sonidos/NivelFinal.mp3"));
-    fondoSound2->setVolume(70);
+    fondoSound2->setVolume(220);
+
+    cortina1Sound=new QMediaPlayer(this);
+    cortina1Sound->setMedia(QUrl("qrc:/sonidos/sonidos/PNivel2.mp3"));
+    cortina1Sound->setVolume(80);
+
+    cortina2Sound=new QMediaPlayer(this);
+    cortina2Sound->setMedia(QUrl("qrc:/sonidos/sonidos/PNivelF.mp3"));
+    cortina2Sound->setVolume(60);
+
 
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
@@ -78,6 +87,8 @@ MainWindow::~MainWindow()
     delete TiempoVida;
     delete TiempoMonedas;
     delete fondoSound1;
+    delete cortina1Sound;
+    delete cortina2Sound;
 
     monedas.clear();
     vida.clear();
@@ -106,8 +117,8 @@ void MainWindow::on_actionDetener_triggered()
 {
     click->play();
     //al presionar detener, todos los tiempos se les hará el stop
-    fondoSound1->stop();
-    fondoSound2->stop();
+    fondoSound1->pause();
+    fondoSound2->pause();
     timer->stop();
     timer2->stop();
 
@@ -171,10 +182,16 @@ void MainWindow::actualizar()
 //    ui->Monedas->display(MonedasLCD);
 
     //Aqui se cambiará el sonido de fondo cuando cambie al nivel 3
-    if(distanciaLCD>=17800){
-        fondoSound1->stop();
-        fondoSound2->play();
-
+    if(distanciaLCD>=8480 && distanciaLCD<=8780  ){
+        cortina1Sound->play();
+    }
+    else if(distanciaLCD>=17600)
+    {
+        if(distanciaLCD>=17500 && distanciaLCD<=17800){
+            cortina2Sound->play();
+            fondoSound2->play();
+            fondoSound1->stop();
+        }
     }
 }
 

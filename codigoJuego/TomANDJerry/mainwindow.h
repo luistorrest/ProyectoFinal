@@ -110,6 +110,8 @@ private:
     QMediaPlayer* click;
     QMediaPlayer* fondoSound1;
     QMediaPlayer* fondoSound2;
+    QMediaPlayer* cortina1Sound;
+    QMediaPlayer* cortina2Sound;
 
     //contadores para la cantidad de objetos
     int numeroVidas;
