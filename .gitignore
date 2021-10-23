@@ -2,6 +2,21 @@
 # Created by https://www.toptal.com/developers/gitignore/api/qtcreator,qt,c++,latex,windows,linux
 # Edit at https://www.toptal.com/developers/gitignore?templates=qtcreator,qt,c++,latex,windows,linux
 
+# Archivos con conflictos
+
+build-TomANDJerry-Desktop_Qt_5_12_2_MinGW_64_bit-Debug
+build-TomANDJerry-Desktop_Qt_5_12_2_MinGW_64_bit-Debug/*
+Makefile.Debug
+Makefile.Release
+*.Debug
+*.Release
+Marketfile
+build
+debug
+debug/*
+relese
+relese/*
+
 ### C++ ###
 # Prerequisites
 *.d
@@ -385,9 +400,7 @@ target_wrapper.*
 
 # QtCreator CMake
 CMakeLists.txt.user*
-build-TomANDJerry-Desktop_Qt_5_12_2_MinGW_64_bit-Debug
-*Makefile.Debug
-*Makefile.Release
+
 
 
 # QtCreator 4.8< compilation database
