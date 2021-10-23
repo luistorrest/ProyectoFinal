@@ -3,5 +3,7 @@
         <file>sonidos/pagina.wav</file>
         <file>sonidos/click1.mp3</file>
         <file>sonidos/click2.wav</file>
+        <file>sonidos/Hueso.mp3</file>
+        <file>sonidos/Spike.mp3</file>
     </qresource>
 </RCC>
