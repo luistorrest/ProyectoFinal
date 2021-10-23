@@ -77,6 +77,7 @@ private slots:
     void on_actionDetener_triggered();
     void on_actionIniciar_triggered();
     void on_actionReincicar_triggered();
+    void on_actionRegresar_al_menu_triggered();
     void actualizar();
     void actualizar2();
     void on_actionGuardar_triggered();
@@ -104,6 +105,11 @@ private:
     //Lista para los objetos
     QList<mostrarobstaculos*> vida;
     QList<mostrarobstaculos*> monedas;
+
+    //sonidos para la mainwindow
+    QMediaPlayer* click;
+    QMediaPlayer* fondoSound1;
+    QMediaPlayer* fondoSound2;
 
     //contadores para la cantidad de objetos
     int numeroVidas;

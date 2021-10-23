@@ -5,16 +5,16 @@ mostrarenemigos::mostrarenemigos(QWidget *parent) :QDialog(parent),ui(new Ui::mo
 {
     ui->setupUi(this);
     tyke= new QMediaPlayer(this);//
-    tyke->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    tyke->setMedia(QUrl("qrc:/sonidos/sonidos/Tyke.mp3"));
 
     hueso= new QMediaPlayer(this);
-    hueso->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    hueso->setMedia(QUrl("qrc:/sonidos/sonidos/Hueso.mp3"));
 
     trampa= new QMediaPlayer(this);
-    trampa->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    trampa->setMedia(QUrl("qrc:/sonidos/sonidos/Trampa.mp3"));
 
     spyke= new QMediaPlayer(this);
-    spyke->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    spyke->setMedia(QUrl("qrc:/sonidos/sonidos/Spike.mp3"));
 
     click= new QMediaPlayer(this);
     click->setMedia(QUrl("qrc:/sonidos/sonidos/pagina.wav"));

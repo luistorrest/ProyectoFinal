@@ -26,6 +26,19 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     timer2=new QTimer(this);
     timer2->stop();
 
+    //Inicializacion de los sonidos
+    click=new QMediaPlayer(this);
+    click->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    click->setVolume(100);
+
+    fondoSound1=new QMediaPlayer(this);
+    fondoSound1->setMedia(QUrl("qrc:/sonidos/sonidos/Niveles1_2.mp3"));
+    fondoSound1->setVolume(70);
+
+    fondoSound2=new QMediaPlayer(this);
+    fondoSound2->setMedia(QUrl("qrc:/sonidos/sonidos/NivelFinal.mp3"));
+    fondoSound2->setVolume(70);
+
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
     TiempoVida->stop();
@@ -61,9 +74,10 @@ MainWindow::~MainWindow()
     delete scene;
     delete ui;
     delete personaje;
-
+    delete click;
     delete TiempoVida;
     delete TiempoMonedas;
+    delete fondoSound1;
 
     monedas.clear();
     vida.clear();
@@ -74,6 +88,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionIniciar_triggered()
 {  
     //para actualizar el contador de vidas, distancia y monedas que se ha colocado en la escena
+    click->play();
+    fondoSound1->play();
     ui->Vida->display(contadorVidas);
     ui->Distancia->display(distanciaLCD);
     ui->Monedas->display(MonedasLCD);
@@ -88,7 +104,10 @@ void MainWindow::on_actionIniciar_triggered()
 }
 void MainWindow::on_actionDetener_triggered()
 {
+    click->play();
     //al presionar detener, todos los tiempos se les hará el stop
+    fondoSound1->stop();
+    fondoSound2->stop();
     timer->stop();
     timer2->stop();
 
@@ -97,6 +116,7 @@ void MainWindow::on_actionDetener_triggered()
 }
 void MainWindow::on_actionReincicar_triggered()
 {
+    click->play();
     if(Multiplayer==true){
         reiniciarMultijugador();
     }
@@ -106,7 +126,7 @@ void MainWindow::on_actionReincicar_triggered()
 }
 void MainWindow::on_actionGuardar_triggered()
 {
-
+    click->play();
 }
 //LCDS de las vidas, distancia y monedas
 void MainWindow::on_Vida_overflow()
@@ -145,10 +165,17 @@ void MainWindow::actualizar()
         monedas.at(i)->actualizarMoneda(dt);
     }
    //focus personaje y movimiento
-    distanciaLCD=personaje->getPersonaje()->getPx();//se le asigna al contador de distancia la posicion a la qu eva avanzando el personaje
-//    ui->Vida->display(contadorVidas);
+    distanciaLCD=personaje->getPersonaje()->getPx();//se le asigna al contador de distancia la posicion a la qu eva avanzando el personaje   
+    //    ui->Vida->display(contadorVidas);
     ui->Distancia->display(distanciaLCD);
 //    ui->Monedas->display(MonedasLCD);
+
+    //Aqui se cambiará el sonido de fondo cuando cambie al nivel 3
+    if(distanciaLCD>=17800){
+        fondoSound1->stop();
+        fondoSound2->play();
+
+    }
 }
 
 
@@ -194,9 +221,21 @@ void MainWindow::reiniciar()
 }
 void MainWindow::reiniciarMultijugador()
 {
-
+    click->play();
 }
 
+void MainWindow::on_actionRegresar_al_menu_triggered()
+{
+    click->play();
+    fondoSound1->stop();
+
+    reiniciar();
+    Menu* menu;
+    menu = new Menu();
+    menu->showMaximized();
+    this->close();
+
+}
 //Quitar y borrar elementos
 void MainWindow::quitarelementos()
 {

@@ -38,7 +38,7 @@ private:
     Ui::Menu *ui;//para crear la ventana tipo menu
     opcion *selec;//para sabaer si selecciono un jugador o multijugador
     QMediaPlayer* click;//objeto de tipo QMediaPlayer para cuando se haga click sobre algun boton
-    QMediaPlayer* click2;//Se usará para otros botones
+    QMediaPlayer* menuSound;//Se usará para el sonido de fondo del menu
     QMediaPlayer* click3;//se usará para otros botones
 
 };

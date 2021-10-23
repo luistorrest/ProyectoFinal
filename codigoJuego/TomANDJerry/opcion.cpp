@@ -9,8 +9,23 @@ opcion::opcion(QWidget *parent) :QWidget(parent),ui(new Ui::opcion)
     this->setAttribute(Qt::WA_TranslucentBackground);//ponerla transparente
 
     click=new QMediaPlayer(this);
-    click->setMedia(QUrl("qrc:/sonidos/sonidos/click1.mp3"));
-    click->setVolume(100);
+    click->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
+    click->setVolume(80);
+
+    selectSound=new QMediaPlayer(this);
+    selectSound->setMedia(QUrl("qrc:/sonidos/sonidos/click.mp3"));
+    selectSound->setVolume(80);
+
+    opcionSound=new QMediaPlayer(this);
+    opcionSound->setMedia(QUrl("qrc:/sonidos/sonidos/tom_jerry_8-bit.mp3"));
+    opcionSound->setVolume(20);
+
+    warning=new QMediaPlayer(this);
+    warning->setMedia(QUrl("qrc:/sonidos/sonidos/Warning.mp3"));
+    warning->setVolume(80);
+
+    opcionSound->play();
+
 
 }
 opcion::~opcion()
@@ -18,17 +33,24 @@ opcion::~opcion()
     delete ui;
     delete iniciar;
     delete click;
+    delete  selectSound;
+    delete  warning;
+    delete opcionSound;
 }
 
 void opcion::on_Iniciar_clicked()
 {
 
+    opcionSound->stop();
     if(multijuador==false){
         if(p1==0 && p2==0){
-            QMessageBox::warning(this,"Cuidado","No has seleccionado ningun personaje!");
+
+            warning->play();
+            QMessageBox::warning(this,"Atencion","Seleccione un personaje para jugar!");
         }
         else {
             click->play();
+
             iniciar->showMaximized();
             iniciar->setDosjugadores(false);
             this->close();
@@ -42,6 +64,7 @@ void opcion::on_Iniciar_clicked()
 
 void opcion::on_Player1_toggled(bool checked)
 {   
+    selectSound->play();
     if(checked){
         ui->Player2->close();
         iniciar->jugador2=false;
@@ -55,6 +78,7 @@ void opcion::on_Player1_toggled(bool checked)
 
 void opcion::on_Player2_toggled(bool checked)
 {
+    selectSound->play();
     if(checked){
         ui->Player1->close();
         iniciar->jugador2=true;
@@ -68,11 +92,13 @@ void opcion::on_Player2_toggled(bool checked)
 void opcion::on_pushButton_clicked()
 {
     click->play();
-
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::question(this,"Salir","¿Seguro que quieres salir del selector de personajes?",
+
+    reply = QMessageBox::question(this,"Salir","¿Seguro que desea salir?",
                                   QMessageBox::Yes|QMessageBox::No);
+
     if(reply==QMessageBox::Yes){
+        opcionSound->stop();
         this->close();
     }
 }

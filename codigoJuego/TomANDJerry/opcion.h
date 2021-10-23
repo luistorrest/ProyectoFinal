@@ -6,6 +6,7 @@
 
 #include "mainwindow.h"
 
+
 namespace Ui {
 class opcion;
 }
@@ -20,6 +21,7 @@ public:
     void control();
     bool multijuador;
     QMediaPlayer* MusicSelec;
+    QMediaPlayer* opcionSound;
 
 
 private slots:
@@ -32,9 +34,9 @@ private:
     Ui::opcion *ui;
     MainWindow *iniciar;
 
-    QMediaPlayer* player;
+    QMediaPlayer* selectSound;
     QMediaPlayer* click;
-    QMediaPlayer *clickPPAL2;
+    QMediaPlayer* warning;
 
     int p1=0,p2=0;
 };
