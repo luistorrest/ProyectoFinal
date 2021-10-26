@@ -42,6 +42,12 @@
         <file>ImagenesJuego/monedas/moneda1.png</file>
         <file>ImagenesJuego/monedas/moneda3.png</file>
         <file>ImagenesJuego/monedas/moneda4.png</file>
+        <file>ImagenesJuego/Trampa/Trampa1.png</file>
+        <file>ImagenesJuego/Trampa/Trampa2.png</file>
+        <file>ImagenesJuego/Muerte1/MuerteTom1.png</file>
+        <file>ImagenesJuego/Muerte1/MuerteTom2.png</file>
+        <file>ImagenesJuego/Muerte2/MuerteJerry1.png</file>
+        <file>ImagenesJuego/Muerte2/MuerteJerry2.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

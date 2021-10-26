@@ -21,15 +21,21 @@ public:
 public slots:
     void volar1();
     void volar2();
+    void muerte1();
+    void muerte2();
 
 
 private:
 
     QTimer *imagenVolar1;
     QTimer *imagenVolar2;
+    QTimer *imagenMuerte1;
+    QTimer *imagenMuerte2;
 
     int imgVolar=1;
     int imgVolar2=1;
+    int imgMuerte=1;
+    int imgMuerte2=1;
 
     int w, h;
     QPixmap pixmap;

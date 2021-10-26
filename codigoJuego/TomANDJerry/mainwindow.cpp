@@ -55,20 +55,42 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     monedaSound->setMedia(QUrl("qrc:/sonidos/sonidos/Moneda1.mp3"));
     monedaSound->setVolume(150);
 
+    trampaSound=new QMediaPlayer();
+    trampaSound->setMedia(QUrl("qrc:/sonidos/sonidos/Trampa.mp3"));
+    trampaSound->setVolume(150);
+
 
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
     TiempoVida->stop();
+
     TiempoMonedas=new QTimer(this);
     TiempoMonedas->stop();
 
+    perder=new QTimer(this);
+    perder->stop();
+
+//    ganar=new QTimer(this);
+//    ganar->stop();
+
+    //inicializacion de los tiempos para los enemigos
+    TiempoTrampa=new QTimer(this);
+    TiempoTrampa->stop();
 
     //connecion de señales y slots
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
     connect(timer2,SIGNAL(timeout()),this,SLOT(actualizar2()));
 
+    //coneccion de señales para las monedas y las vidas
     connect(TiempoVida,SIGNAL(timeout()),this,SLOT(VidasAleatorias()));
     connect(TiempoMonedas,SIGNAL(timeout()),this,SLOT(MonedasAleatorias()));
+
+    //*********************
+    connect(perder,SIGNAL(timeout()),this,SLOT(esperar()));
+
+
+    //coneccion de señales para los enemigos
+    connect(TiempoTrampa,SIGNAL(timeout()),this,SLOT(TrampasAleatorias()));
 
     //Semilla para generar objetos al azar
      srand(time(NULL));
@@ -78,10 +100,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
      distanciaLCD=0;
      MonedasLCD=0;
 
-     //inicializacion de los objetos para el comienzo del juego
+     //inicializacion de los objetos para el comienzo del juego(monedas y vidas)
      numeroVidas= 4000;
      numeromonedas=2000;
 
+     //inicializacion de los objetos para el comienzo del juego(enemigos)
+     numeroTrampas=3000;
 }
 
 MainWindow::~MainWindow()
@@ -92,25 +116,32 @@ MainWindow::~MainWindow()
     delete ui;
     delete personaje;
     delete click;
+
     delete TiempoVida;
     delete TiempoMonedas;
+    delete TiempoTrampa;
+
     delete fondoSound1;
     delete cortina1Sound;
     delete cortina2Sound;
     delete vidaSound;
     delete monedaSound;
+    delete trampaSound;
 
     monedas.clear();
     vida.clear();
+    trampa.clear();
 
 }
 
 //Botones
 void MainWindow::on_actionIniciar_triggered()
 {  
-    //para actualizar el contador de vidas, distancia y monedas que se ha colocado en la escena
+    //sonidos
     click->play();
     fondoSound1->play();
+
+
     ui->Vida->display(contadorVidas);
     ui->Distancia->display(distanciaLCD);
     ui->Monedas->display(MonedasLCD);
@@ -119,8 +150,12 @@ void MainWindow::on_actionIniciar_triggered()
     timer->start(1000*dt);
     timer2->start(1000*dt);
 
+    //Inicializacion de los tiempos para monedas y vidas
     TiempoVida->start(numeroVidas);
     TiempoMonedas->start(numeromonedas);
+
+    //Inicializacion de los tiempos para enemigos
+    TiempoTrampa->start(numeroTrampas);
 
 }
 void MainWindow::on_actionDetener_triggered()
@@ -132,8 +167,14 @@ void MainWindow::on_actionDetener_triggered()
     timer->stop();
     timer2->stop();
 
+    //se paran los tiempos de las monedas y las vidas
     TiempoVida->stop();
     TiempoMonedas->stop();
+
+    //se paran los tiempos de los enemigos
+    TiempoTrampa->stop();
+
+
 }
 void MainWindow::on_actionReincicar_triggered()
 {
@@ -185,11 +226,18 @@ void MainWindow::actualizar()
     for(int i=0;i<monedas.size();i++){
         monedas.at(i)->actualizarMoneda(dt);
     }
+
+    //Se actualizan los movimientos de los enemigos
+    for(int i=0;i<trampa.size();i++){
+        trampa.at(i)->actualizar(dt);
+    }
+
    //focus personaje y movimiento
     distanciaLCD=personaje->getPersonaje()->getPx();//se le asigna al contador de distancia la posicion a la qu eva avanzando el personaje   
     ui->Vida->display(contadorVidas);//aumento en la ventana el contador LCD para las vidas
     ui->Distancia->display(distanciaLCD);//aumento en la ventana el contador LCD para la distancia
     ui->Monedas->display(MonedasLCD);//aumento en la ventana el contador LCD para las monedas
+
 
     //colision para los personajes con los objetos que apareceran en la escena
     colision(personaje);
@@ -236,6 +284,7 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                scene->removeItem(vida.at(i));
                vida.removeAt(i);
 
+
             }
             else if (contadorVidas<3) {
                 scene->removeItem(vida.at(i));
@@ -254,6 +303,112 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                 MonedasLCD+=1;
             }
         }
+
+//------------------------COLISION CON LAS TRAMPAS-----------------------------------
+        //PARA MULTIJUGADOR
+        for(int i=0;i<trampa.size();i++){
+            if(personaje->collidesWithItem(trampa.at(i))){
+                trampaSound->play();
+                if(dosjugadores){
+                    if(jugador2){
+                        if(contadorVidas>0){//SI EL PERSONAJE AUN CUENTA CON VIDAS
+
+                            scene->removeItem(trampa.at(i));
+                            trampa.removeAt(i);
+                            contadorVidas--;
+                        }
+                        //muere el personaje 2
+                        else {//SI EL PERSONAJE YA NO TIENE VIDAS
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(trampa.at(i));
+                            //explosion->play();
+
+                            personaje->muerte2();
+                            jugador2=false;
+                        }
+                    }
+                    //para el caso en el que el jugador este jugando con el personaje#2
+                    else {
+                        if(contadorVidas>0){//SI EL PERSONAJE AUN CUENTA CON VIDAS
+
+                            scene->removeItem(trampa.at(i));
+                            trampa.removeAt(i);
+                            contadorVidas--;
+
+                        }
+                        //MUERE PERSONAJE 1
+                        else {//SI EL PERSONAJE YA NO TIENE VIDAS
+                            timer->stop();
+                            TiempoTrampa->stop();
+
+                            TiempoMonedas->stop();
+
+                            TiempoVida->stop();
+                            scene->removeItem(trampa.at(i));
+                            personaje->muerte1();
+                            QTimer::singleShot(20,this,SLOT(ocultar()));
+
+                            QTimer::singleShot(20,this,SLOT(esperar()));
+                            QTimer::singleShot(20,this,SLOT(showMaximized()));
+
+                        }
+                    }
+                }
+                //PARA UN SOLO JUGADOR
+                else {
+                    if(jugador2){
+                        if(contadorVidas>0){
+                            scene->removeItem(trampa.at(i));
+                            trampa.removeAt(i);
+                            contadorVidas--;
+                        }
+                        else {
+                            //CUANDO MUERE EL PERSONAJE 2
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoMonedas->stop();
+
+
+                            TiempoVida->stop();
+                            scene->removeItem(trampa.at(i));
+
+                            fondoSound1->setVolume(10);
+
+                            personaje->muerte2();
+                            //QTimer::singleShot(800,this,SLOT(ocultar()));
+                            //QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(2000,this,SLOT(parar()));
+                        }
+                    }
+                    else {  //JUGADOR 1
+                        if(contadorVidas>0){                           
+                            scene->removeItem(trampa.at(i));
+                            trampa.removeAt(i);
+                            contadorVidas--;
+                        }
+                        else {
+                            //CUANDO MUERE EL  JUGADOR 1
+                            timer->stop();
+                            TiempoTrampa->stop();
+
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(trampa.at(i));
+                            fondoSound1->setVolume(10);
+
+                            personaje->muerte1();
+//                            QTimer::singleShot(4000,this,SLOT(ocultar()));
+//                            QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(2000,this,SLOT(parar()));
+                        }
+                    }
+                }
+            }
+        }
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -282,10 +437,52 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 void MainWindow::reiniciar()
 {
 
+    timer->stop();
+    timer2->stop();
+
+    fondoSound1->stop();
+
+
+    TiempoTrampa->stop();
+
+    TiempoVida->stop();
+    TiempoMonedas->stop();
+
+    contadorVidas=1;
+    distanciaLCD=0;
+    MonedasLCD=0;
+
+
+    quitarelementos();
+    borrarelementos();
+    scene->setSceneRect(24,0,1000,496);
+    multijugador();
+    ui->Distancia->display(0);
+    ui->Vida->display(1);
+    ui->Monedas->display(0);
+
 }
 void MainWindow::reiniciarMultijugador()
 {
     click->play();
+    jugador2=false;
+    timer->stop();
+    timer2->stop();
+
+    fondoSound1->stop();
+
+    TiempoTrampa->stop();
+    TiempoVida->stop();
+    TiempoMonedas->stop();
+
+    contadorVidas=1;
+    distanciaLCD=0;
+    MonedasLCD=0;
+//    gano->stop();
+    quitarelementos();
+    borrarelementos();
+    scene->setSceneRect(24,0,1000,496);
+    multijugador();
 }
 
 void MainWindow::on_actionRegresar_al_menu_triggered()
@@ -313,6 +510,11 @@ void MainWindow::quitarelementos()
         scene->removeItem(monedas.at(i));
     }
 
+    //se quitan las trampas
+    for(int i=0; i<trampa.length();i++){
+        scene->removeItem(trampa.at(i));
+    }
+
     scene->removeItem(personaje);
 
 }
@@ -320,6 +522,9 @@ void MainWindow::borrarelementos()
 {
     vida.clear();
     monedas.clear();
+
+    trampa.clear();
+
     delete personaje;
 }
 
@@ -367,6 +572,8 @@ void MainWindow::setDosjugadores(bool value)
     dosjugadores=value;
     multijugador();
 }
+
+//--------- OBJETOS ALEATORIOS-------------------------
 void MainWindow::VidasAleatorias()
 {
     float py=0;
@@ -382,6 +589,44 @@ void MainWindow::VidasAleatorias()
         vida.pop_front();
     }
 }
+
+void MainWindow::parar()
+{
+    reiniciar();
+    Menu* menu;
+    menu = new Menu();
+    menu->showMaximized();
+
+    this->close();
+}
+void MainWindow::esperar()
+{
+    if(dosjugadores){
+        if(jugador2){
+            ganar->start(2000);
+            jugador2=false;
+            reiniciar();
+        }
+        else {
+            jugador2=true;
+            reiniciar();
+        }
+    }
+    else {
+        reiniciar();
+    }
+}
+void MainWindow::ocultar()
+{
+    MainWindow::hide();
+
+    if(Multiplayer==false){
+        //Lose->play();
+    }
+}
+
+
+//-----------------------------
 void MainWindow::MonedasAleatorias()//falta por poner en Tom&Jerry
 {
     float py=0,vx=0,vy=0;
@@ -401,3 +646,19 @@ void MainWindow::MonedasAleatorias()//falta por poner en Tom&Jerry
     }
 }
 
+void MainWindow::TrampasAleatorias()//falta por poner en Tom&Jerry
+{
+    float py=0,vx=0;
+    py=rand() % 350+50;//posicion en y
+    vx=rand() % 150+80;
+
+    trampa.append(new mostrarobstaculos(personaje->getPersonaje()->getPx()+1000,py));
+    trampa.last()->moverTrampa();
+    trampa.last()->getItem()->setVel(vx,0);
+    scene->addItem(trampa.last());
+
+    if(trampa.front()->getItem()->getPx()<=0){
+        scene->removeItem(trampa.front());
+        trampa.pop_front();
+    }
+}

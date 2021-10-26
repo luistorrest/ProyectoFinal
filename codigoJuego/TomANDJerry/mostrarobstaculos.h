@@ -39,16 +39,18 @@ public:
     //metodos para controlar los objetos que apareceran
     void moverVida();
     void moverMoneda();
+    void moverTrampa();
 
     //Imagenes
     int imgVida;
     int imgMoneda;
-
+    int imgTrampa;
 
 private slots:
     //sprites
     void vida();
-    void moneda();
+    void moneda();   
+    void trampa();
 
 };
 

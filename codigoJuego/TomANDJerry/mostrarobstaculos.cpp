@@ -6,14 +6,11 @@ mostrarobstaculos::mostrarobstaculos(float x, float y)
     setPos(x,y);
     obstaculo=new moverobstaculos(x,y);
 
-    //valor imagenes
-//    imgTyke=1;
-//    imgHueso=1;
-//    imgTrampa=1;
-//    imgSpyke=1;
-
+    //contador para alternar las imagenes
     imgVida=1;
     imgMoneda=1;
+
+    imgTrampa=1;
 
     timer= new QTimer();
     timer->start(150);
@@ -57,7 +54,12 @@ void mostrarobstaculos::moverMoneda()
     connect(timer,&QTimer::timeout,this,&mostrarobstaculos::moneda);
 }
 
+void mostrarobstaculos::moverTrampa()
+{
+    connect(timer,&QTimer::timeout,this,&mostrarobstaculos::trampa);
+}
 
+//-----------------Animicaiones de los objetos(es decir las imagenes)-----------------
 void mostrarobstaculos::vida()
 {
     switch (imgVida) {
@@ -68,19 +70,19 @@ void mostrarobstaculos::vida()
         break;
     case 2:
         pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
-        imgVida++;
-        w=45; h=35;
-        break;
-    case 3:
-        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
-        imgVida++;
-        w=50; h=40;
-        break;
-    case 4:
-        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
         imgVida=1;
         w=45; h=35;
         break;
+//    case 3:
+//        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
+//        imgVida++;
+//        w=50; h=40;
+//        break;
+//    case 4:
+//        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
+//        imgVida=1;
+//        w=45; h=35;
+//        break;
     }
 }
 
@@ -111,6 +113,32 @@ void mostrarobstaculos::moneda()
     }
 }
 
+void mostrarobstaculos::trampa()
+{
+    switch (imgTrampa) {
+    case 1:
+        pixmap.load(":/ImagenesJuego/Trampa/Trampa1.png");
+        imgTrampa++;
+        w=90; h=66;
+        break;
+    case 2:
+        pixmap.load(":/ImagenesJuego/Trampa/Trampa1.png");
+        imgTrampa++;
+        w=90 ;h=66;
+        break;
+    case 3:
+        pixmap.load(":/ImagenesJuego/Trampa/Trampa2.png");
+        imgTrampa++;
+        w=90 ;h=66;
+        break;
+    case 4:
+        pixmap.load(":/ImagenesJuego/Trampa/Trampa2.png");
+        imgTrampa=1;
+        w=90 ;h=66;
+        break;
+
+    }
+}
 
 //Slots
 void mostrarobstaculos::actualizar(float dt)

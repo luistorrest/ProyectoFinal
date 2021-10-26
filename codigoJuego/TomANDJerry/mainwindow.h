@@ -61,6 +61,7 @@ public:
 
     QList<float> mon;
     QList<float> vid;
+    QList<float> tram;//trampa
 
     float posX=0;
     float posY=0;
@@ -78,13 +79,21 @@ private slots:
     void on_actionIniciar_triggered();
     void on_actionReincicar_triggered();
     void on_actionRegresar_al_menu_triggered();
+    void on_actionGuardar_triggered();
+
     void actualizar();
     void actualizar2();
-    void on_actionGuardar_triggered();
+
+    void parar(void);
+    void ocultar(void);
+    void esperar(void);
+    void Retro(void);
+
 
     //vidas y monedas
     void VidasAleatorias(void);
     void MonedasAleatorias(void);
+    void TrampasAleatorias(void);
 
     void on_Vida_overflow();
     void on_Distancia_overflow();
@@ -101,11 +110,15 @@ private:
     //tiempos para vidas y monedas
     QTimer *TiempoVida;
     QTimer *TiempoMonedas;
+    QTimer *TiempoTrampa;
+
+    QTimer *perder;
+    QTimer *ganar;
 
     //Lista para los objetos
     QList<mostrarobstaculos*> vida;
     QList<mostrarobstaculos*> monedas;
-
+    QList<mostrarobstaculos*> trampa;
 
     //sonidos para la mainwindow
     QMediaPlayer* click;
@@ -115,10 +128,12 @@ private:
     QMediaPlayer* cortina2Sound;
     QMediaPlayer* vidaSound;
     QMediaPlayer* monedaSound;
+    QMediaPlayer* trampaSound;
 
     //contadores para la cantidad de objetos
     int numeroVidas;
     int numeromonedas;
+    int numeroTrampas;
 
 
     //multijugador
@@ -126,7 +141,7 @@ private:
     int puntaje1=0,puntaje2=0;//
 
     int valor=550;
-    int velocidadNivel1=0;
+    int velocidadNivel1=200;
 
     void focus();
     void colision(mostrarPersonaje* a);//

@@ -17,6 +17,9 @@ public:
     void ActualizarMoneda(float dt);//metodo para actualizar el movimiento que tendrá la moneda(CAIDA LIBRE)
     void acelerar(float dt);//metodo para acelerar los obstaculos
 
+    //metodos para mover enemigos
+    void moverTyke();
+
     //metodos get-set
     float getPx() const;
     void setPx(float value);
