@@ -10,11 +10,11 @@ opcion::opcion(QWidget *parent) :QWidget(parent),ui(new Ui::opcion)
 
     click=new QMediaPlayer(this);
     click->setMedia(QUrl("qrc:/sonidos/sonidos/click2.wav"));
-    click->setVolume(80);
+    click->setVolume(50);
 
     selectSound=new QMediaPlayer(this);
     selectSound->setMedia(QUrl("qrc:/sonidos/sonidos/click.mp3"));
-    selectSound->setVolume(80);
+    selectSound->setVolume(50);
 
     opcionSound=new QMediaPlayer(this);
     opcionSound->setMedia(QUrl("qrc:/sonidos/sonidos/tom_jerry_8-bit.mp3"));

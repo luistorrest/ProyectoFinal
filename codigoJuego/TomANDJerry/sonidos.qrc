@@ -14,5 +14,7 @@
         <file>sonidos/NivelFinal.mp3</file>
         <file>sonidos/PNivel2.mp3</file>
         <file>sonidos/PNivelF.mp3</file>
+        <file>sonidos/Vida.mp3</file>
+        <file>sonidos/Moneda1.mp3</file>
     </qresource>
 </RCC>

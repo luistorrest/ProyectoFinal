@@ -106,23 +106,29 @@ private:
     QList<mostrarobstaculos*> vida;
     QList<mostrarobstaculos*> monedas;
 
+
     //sonidos para la mainwindow
     QMediaPlayer* click;
     QMediaPlayer* fondoSound1;
     QMediaPlayer* fondoSound2;
     QMediaPlayer* cortina1Sound;
     QMediaPlayer* cortina2Sound;
+    QMediaPlayer* vidaSound;
+    QMediaPlayer* monedaSound;
 
     //contadores para la cantidad de objetos
     int numeroVidas;
     int numeromonedas;
+
 
     //multijugador
     bool dosjugadores,ban=false,ban1=false;//
     int puntaje1=0,puntaje2=0;//
 
     int valor=550;
-    int velocidadNivel1=200;        
+    int velocidadNivel1=0;
+
     void focus();
+    void colision(mostrarPersonaje* a);//
 };
 #endif // MAINWINDOW_H

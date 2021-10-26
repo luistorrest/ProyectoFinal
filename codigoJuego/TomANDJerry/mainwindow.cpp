@@ -47,6 +47,14 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     cortina2Sound->setMedia(QUrl("qrc:/sonidos/sonidos/PNivelF.mp3"));
     cortina2Sound->setVolume(60);
 
+    vidaSound=new QMediaPlayer();
+    vidaSound->setMedia(QUrl("qrc:/sonidos/sonidos/Vida.mp3"));
+    vidaSound->setVolume(100);
+
+    monedaSound=new QMediaPlayer();
+    monedaSound->setMedia(QUrl("qrc:/sonidos/sonidos/Moneda1.mp3"));
+    monedaSound->setVolume(150);
+
 
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
@@ -89,6 +97,8 @@ MainWindow::~MainWindow()
     delete fondoSound1;
     delete cortina1Sound;
     delete cortina2Sound;
+    delete vidaSound;
+    delete monedaSound;
 
     monedas.clear();
     vida.clear();
@@ -177,9 +187,13 @@ void MainWindow::actualizar()
     }
    //focus personaje y movimiento
     distanciaLCD=personaje->getPersonaje()->getPx();//se le asigna al contador de distancia la posicion a la qu eva avanzando el personaje   
-    //    ui->Vida->display(contadorVidas);
-    ui->Distancia->display(distanciaLCD);
-//    ui->Monedas->display(MonedasLCD);
+    ui->Vida->display(contadorVidas);//aumento en la ventana el contador LCD para las vidas
+    ui->Distancia->display(distanciaLCD);//aumento en la ventana el contador LCD para la distancia
+    ui->Monedas->display(MonedasLCD);//aumento en la ventana el contador LCD para las monedas
+
+    //colision para los personajes con los objetos que apareceran en la escena
+    colision(personaje);
+
 
     //Aqui se cambiará el sonido de fondo cuando cambie al nivel 3
     if(distanciaLCD>=8480 && distanciaLCD<=8780  ){
@@ -209,6 +223,39 @@ void MainWindow::focus()
         personaje->getPersonaje()->setPy(0);
     }
 }
+void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
+{
+
+//***********************************************************************************
+
+    //Colision vida
+    for(int i=0;i<vida.size();i++){
+        if(a->collidesWithItem(vida.at(i))){
+            vidaSound->play();
+            if(contadorVidas==3){
+               scene->removeItem(vida.at(i));
+               vida.removeAt(i);
+
+            }
+            else if (contadorVidas<3) {
+                scene->removeItem(vida.at(i));
+                vida.removeAt(i);
+                contadorVidas++;
+            }
+        }
+    }
+//***********************************************************************************
+        //colision con moneda
+        for(int i=0;i<monedas.size();i++){
+            if(a->collidesWithItem(monedas.at(i))){
+                monedaSound->play();
+                scene->removeItem(monedas.at(i));
+                monedas.removeAt(i);
+                MonedasLCD+=1;
+            }
+        }
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key()==Qt::Key_W){
