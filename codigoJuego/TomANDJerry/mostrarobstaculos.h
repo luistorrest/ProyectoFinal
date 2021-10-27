@@ -35,22 +35,30 @@ public:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget);
     void actualizar(float dt);
     void actualizarMoneda(float dt);
+    void actualizarHueso(float dt);
+    void actualizarTyke(float dt);
 
     //metodos para controlar los objetos que apareceran
     void moverVida();
     void moverMoneda();
     void moverTrampa();
+    void moverHueso();
+    void moverTyke();
 
     //Imagenes
     int imgVida;
     int imgMoneda;
     int imgTrampa;
+    int imgHueso;
+    int imgTyke;
 
 private slots:
     //sprites
     void vida();
     void moneda();   
     void trampa();
+    void hueso();
+    void tyke();
 
 };
 

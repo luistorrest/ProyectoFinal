@@ -33,7 +33,6 @@
         <file>ImagenesJuego/Otros/PlayJerry.png</file>
         <file>ImagenesJuego/Otros/PlayTom.png</file>
         <file>ImagenesJuego/Otros/IniciarPartida.png</file>
-        <file>ImagenesJuego/Fondos/fondoJuego.png</file>
         <file>ImagenesJuego/vidas/Vida1.png</file>
         <file>ImagenesJuego/vidas/Vida2.png</file>
         <file>ImagenesJuego/vidas/Vida3.png</file>
@@ -48,6 +47,18 @@
         <file>ImagenesJuego/Muerte1/MuerteTom2.png</file>
         <file>ImagenesJuego/Muerte2/MuerteJerry1.png</file>
         <file>ImagenesJuego/Muerte2/MuerteJerry2.png</file>
+        <file>ImagenesJuego/Fondos/fondoJuego.png</file>
+        <file>ImagenesJuego/Hueso/Hueso0.png</file>
+        <file>ImagenesJuego/Hueso/Hueso1.png</file>
+        <file>ImagenesJuego/Hueso/Hueso2.png</file>
+        <file>ImagenesJuego/Hueso/Hueso3.png</file>
+        <file>ImagenesJuego/Hueso/Hueso4.png</file>
+        <file>ImagenesJuego/Hueso/Hueso5.png</file>
+        <file>ImagenesJuego/Hueso/Hueso6.png</file>
+        <file>ImagenesJuego/Hueso/Hueso7.png</file>
+        <file>ImagenesJuego/Hueso/Hueso8.png</file>
+        <file>ImagenesJuego/Tyke/tyke1.png</file>
+        <file>ImagenesJuego/Tyke/tyke2.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

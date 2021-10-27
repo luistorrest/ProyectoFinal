@@ -59,6 +59,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     trampaSound->setMedia(QUrl("qrc:/sonidos/sonidos/Trampa.mp3"));
     trampaSound->setVolume(150);
 
+    huesoSound=new QMediaPlayer();
+    huesoSound->setMedia(QUrl("qrc:/sonidos/sonidos/Hueso.mp3"));
+    huesoSound->setVolume(150);
+
+    tykeSound=new QMediaPlayer();
+    tykeSound->setMedia(QUrl("qrc:/ImagenesJuego/Otros/tyke.png"));
+    tykeSound->setVolume(150);
+
+
 
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
@@ -77,6 +86,12 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     TiempoTrampa=new QTimer(this);
     TiempoTrampa->stop();
 
+    TiempoHueso=new QTimer(this);
+    TiempoHueso->stop();
+
+    TiempoTyke=new QTimer(this);
+    TiempoTyke->stop();
+
     //connecion de señales y slots
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
     connect(timer2,SIGNAL(timeout()),this,SLOT(actualizar2()));
@@ -91,6 +106,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 
     //coneccion de señales para los enemigos
     connect(TiempoTrampa,SIGNAL(timeout()),this,SLOT(TrampasAleatorias()));
+    connect(TiempoHueso,SIGNAL(timeout()),this,SLOT(HuesosAleatorios()));
+    connect(TiempoTyke,SIGNAL(timeout()),this,SLOT(TykeAleatorios()));
 
     //Semilla para generar objetos al azar
      srand(time(NULL));
@@ -101,11 +118,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
      MonedasLCD=0;
 
      //inicializacion de los objetos para el comienzo del juego(monedas y vidas)
-     numeroVidas= 4000;
+     numeroVidas= 5000;
      numeromonedas=2000;
 
      //inicializacion de los objetos para el comienzo del juego(enemigos)
-     numeroTrampas=3000;
+     numeroTrampas=2000;
+     numeroHuesos=2500;
+     numeroTykes=1500;
 }
 
 MainWindow::~MainWindow()
@@ -120,6 +139,8 @@ MainWindow::~MainWindow()
     delete TiempoVida;
     delete TiempoMonedas;
     delete TiempoTrampa;
+    delete TiempoHueso;
+    delete TiempoTyke;
 
     delete fondoSound1;
     delete cortina1Sound;
@@ -127,10 +148,14 @@ MainWindow::~MainWindow()
     delete vidaSound;
     delete monedaSound;
     delete trampaSound;
+    delete huesoSound;
+    delete tykeSound;
 
     monedas.clear();
     vida.clear();
     trampa.clear();
+    hueso.clear();
+    tyke.clear();
 
 }
 
@@ -156,6 +181,7 @@ void MainWindow::on_actionIniciar_triggered()
 
     //Inicializacion de los tiempos para enemigos
     TiempoTrampa->start(numeroTrampas);
+    TiempoHueso->start(numeroHuesos);
 
 }
 void MainWindow::on_actionDetener_triggered()
@@ -173,6 +199,8 @@ void MainWindow::on_actionDetener_triggered()
 
     //se paran los tiempos de los enemigos
     TiempoTrampa->stop();
+    TiempoHueso->stop();
+    TiempoTyke->stop();
 
 
 }
@@ -227,6 +255,17 @@ void MainWindow::actualizar()
         monedas.at(i)->actualizarMoneda(dt);
     }
 
+    for(int i=0;i<hueso.size();i++){
+        hueso.at(i)->actualizarHueso(dt);
+
+    }
+
+    for(int i=0;i<tyke.size();i++){
+        tyke.at(i)->actualizarTyke(dt);
+
+    }
+
+
     //Se actualizan los movimientos de los enemigos
     for(int i=0;i<trampa.size();i++){
         trampa.at(i)->actualizar(dt);
@@ -243,18 +282,33 @@ void MainWindow::actualizar()
     colision(personaje);
 
 
-    //Aqui se cambiará el sonido de fondo cuando cambie al nivel 3
-    if(distanciaLCD>=8480 && distanciaLCD<=8780  ){
-        cortina1Sound->play();
+    //DIFFICULTAD
+    //Aqui se cambiará el sonido de fondo cuando cambie al nivel 2
+    if(distanciaLCD>=8680 && distanciaLCD<=8780  ){
+        cortina1Sound->play();//sonido para el cambio al nivel2
+
+        TiempoHueso->stop();
+        TiempoHueso->start(3000);//hacemos que los huesos salgan menos seguidos
+
+        TiempoVida->stop();
+        TiempoVida->start(2000);//las vidas apareceran mas seguidas
+
+        TiempoTrampa->stop();
+        TiempoTrampa->start(4000);//las trampas apareceran menos seguidas
+
+        TiempoTyke->start(numeroTykes);
+
     }
     else if(distanciaLCD>=17600)
     {
-        if(distanciaLCD>=17500 && distanciaLCD<=17800){
+        if(distanciaLCD>=17720 && distanciaLCD<=17800){
+
             cortina2Sound->play();
             fondoSound2->play();
             fondoSound1->stop();
         }
     }
+
 }
 
 
@@ -409,6 +463,130 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
             }
         }
 
+//------------------------COLISION CON LOS HUESOS-----------------------------------
+        for(int i=0;i<hueso.size();i++){
+            if(personaje->collidesWithItem(hueso.at(i))){
+                personaje->getPersonaje()->setPx(personaje->getPersonaje()->getPx()-100);
+                huesoSound->play();
+
+                if(dosjugadores){
+
+                    if(jugador2){
+                        if(contadorVidas>0){
+                            scene->removeItem(hueso.at(i));
+                            hueso.removeAt(i);
+                            contadorVidas--;
+
+                        }
+                        //Muere el personaje 2
+                        else {
+                            timer->stop();
+                            TiempoHueso->stop();
+                            TiempoTrampa->stop();
+
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(hueso.at(i));
+
+                            personaje->muerte2();
+
+                            QTimer::singleShot(820,this,SLOT(ocultar()));
+
+                           //Muestra en pantalla los resultados
+
+
+                           jugador2=false;
+                        }
+                    }
+                    else {
+                        if(contadorVidas>0){
+
+                            scene->removeItem(hueso.at(i));
+                            hueso.removeAt(i);
+                            contadorVidas--;
+
+                        }
+                        //Muere el personaje 1
+                        else {
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoHueso->stop();
+
+
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(hueso.at(i));
+
+                            personaje->muerte2(); //muerte2
+
+                            //Muestra en pantalla los resultados
+
+//                            QTimer::singleShot(7000,this,SLOT(esperar()));
+//                            QTimer::singleShot(7000,this,SLOT(showMaximized()));
+
+                        }
+                    }
+                }
+                //Cuando solo es un jugador
+                else {
+                    if(jugador2){//SI ELIGE EL PERSONAJE 2
+                        if(contadorVidas>0){
+                            scene->removeItem(hueso.at(i));
+                            hueso.removeAt(i);
+                            contadorVidas--;
+                        }
+                        //CUANDO YA NO TENGA VIDAS
+                        else {
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoHueso->stop();
+
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(hueso.at(i));
+
+
+                            fondoSound1->setVolume(10);
+                            personaje->muerte2(); //muerte2
+
+//                            QTimer::singleShot(7000,this,SLOT(esperar()));
+//                            QTimer::singleShot(7000,this,SLOT(parar()));
+
+                        }
+                    }
+                    //Personaje 1
+                    else {//SI ELIGE EL PERSONAJE 1
+                        if(contadorVidas>0){
+
+                            scene->removeItem(hueso.at(i));
+                            hueso.removeAt(i);
+                            contadorVidas--;
+                        }
+                        //CUANDO YA NO TIENE VIDAS
+                        else {
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoHueso->stop();
+
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+                            scene->removeItem(hueso.at(i));
+
+                            fondoSound1->setVolume(10);
+
+                            personaje->muerte1(); //muerte2
+//                            QTimer::singleShot(1100,this,SLOT(ocultar()));
+
+//                            QTimer::singleShot(7000,this,SLOT(esperar()));
+//                            QTimer::singleShot(7000,this,SLOT(parar()));
+
+                        }
+                    }
+                }
+            }
+        }
+
+
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -441,12 +619,13 @@ void MainWindow::reiniciar()
     timer2->stop();
 
     fondoSound1->stop();
-
-
     TiempoTrampa->stop();
+    TiempoHueso->stop();
+    TiempoTyke->stop();
 
     TiempoVida->stop();
     TiempoMonedas->stop();
+
 
     contadorVidas=1;
     distanciaLCD=0;
@@ -472,6 +651,9 @@ void MainWindow::reiniciarMultijugador()
     fondoSound1->stop();
 
     TiempoTrampa->stop();
+    TiempoHueso->stop();
+    TiempoTyke->stop();
+
     TiempoVida->stop();
     TiempoMonedas->stop();
 
@@ -515,6 +697,15 @@ void MainWindow::quitarelementos()
         scene->removeItem(trampa.at(i));
     }
 
+    for(int i=0; i<hueso.length();i++){
+        scene->removeItem(hueso.at(i));
+    }
+
+    for(int i=0;i<tyke.size();i++){
+        scene->removeItem(tyke.at(i));
+    }
+
+
     scene->removeItem(personaje);
 
 }
@@ -522,8 +713,9 @@ void MainWindow::borrarelementos()
 {
     vida.clear();
     monedas.clear();
-
     trampa.clear();
+    hueso.clear();
+    tyke.clear();
 
     delete personaje;
 }
@@ -625,7 +817,6 @@ void MainWindow::ocultar()
     }
 }
 
-
 //-----------------------------
 void MainWindow::MonedasAleatorias()//falta por poner en Tom&Jerry
 {
@@ -646,7 +837,7 @@ void MainWindow::MonedasAleatorias()//falta por poner en Tom&Jerry
     }
 }
 
-void MainWindow::TrampasAleatorias()//falta por poner en Tom&Jerry
+void MainWindow::TrampasAleatorias()
 {
     float py=0,vx=0;
     py=rand() % 350+50;//posicion en y
@@ -662,3 +853,49 @@ void MainWindow::TrampasAleatorias()//falta por poner en Tom&Jerry
         trampa.pop_front();
     }
 }
+
+void MainWindow::HuesosAleatorios()
+{
+    float py=0,vx=0,vy=0;
+    py= rand() % 200+350;//final-inicio
+    vx=rand()%150+80;
+    vy=600;
+
+    hueso.append(new mostrarobstaculos(personaje->getPersonaje()->getPx()+1000,py));
+    hueso.last()->moverHueso();
+    hueso.last()->getItem()->setVel(vx,vy);
+    scene->addItem(hueso.last());
+
+    if(hueso.front()->getItem()->getPx()<=0){
+        scene->removeItem(hueso.front());
+        hueso.pop_front();
+    }
+}
+
+void MainWindow:: TykeAleatorios()
+{
+    float py=0,vx=0,vy=0;
+    py= rand() % 200+350;//final-inicio
+    vx=rand()%150+80;
+    vy=600;
+
+    tyke.append(new mostrarobstaculos(personaje->getPersonaje()->getPx()+1000,py));
+    tyke.last()->moverHueso();
+    tyke.last()->getItem()->setVel(vx,vy);
+    scene->addItem(tyke.last());
+
+    if(tyke.front()->getItem()->getPx()<=0){
+        scene->removeItem(tyke.front());
+        tyke.pop_front();
+    }
+}
+
+
+
+
+
+
+
+
+
+

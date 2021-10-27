@@ -52,6 +52,7 @@ public:
     void multijugador();
     void dificultad();
 
+
     //quitar-borrar elementos
     void quitarelementos();
     void borrarelementos();
@@ -62,6 +63,8 @@ public:
     QList<float> mon;
     QList<float> vid;
     QList<float> tram;//trampa
+    QList<float> hue;
+    QList<float> tyk;
 
     float posX=0;
     float posY=0;
@@ -87,13 +90,17 @@ private slots:
     void parar(void);
     void ocultar(void);
     void esperar(void);
-    void Retro(void);
+//    void Retro(void);
 
 
     //vidas y monedas
     void VidasAleatorias(void);
     void MonedasAleatorias(void);
+
+    //enemigos aleatorios
     void TrampasAleatorias(void);
+    void HuesosAleatorios(void);
+    void TykeAleatorios(void);
 
     void on_Vida_overflow();
     void on_Distancia_overflow();
@@ -110,7 +117,12 @@ private:
     //tiempos para vidas y monedas
     QTimer *TiempoVida;
     QTimer *TiempoMonedas;
+
+    //tiempos para los enemigos
     QTimer *TiempoTrampa;
+    QTimer *TiempoHueso;
+    QTimer *TiempoTyke;
+
 
     QTimer *perder;
     QTimer *ganar;
@@ -119,6 +131,8 @@ private:
     QList<mostrarobstaculos*> vida;
     QList<mostrarobstaculos*> monedas;
     QList<mostrarobstaculos*> trampa;
+    QList<mostrarobstaculos*> hueso;
+    QList<mostrarobstaculos*> tyke;
 
     //sonidos para la mainwindow
     QMediaPlayer* click;
@@ -129,11 +143,16 @@ private:
     QMediaPlayer* vidaSound;
     QMediaPlayer* monedaSound;
     QMediaPlayer* trampaSound;
+    QMediaPlayer* huesoSound;
+    QMediaPlayer* tykeSound;
+
 
     //contadores para la cantidad de objetos
     int numeroVidas;
     int numeromonedas;
     int numeroTrampas;
+    int numeroHuesos;
+    int numeroTykes;
 
 
     //multijugador
