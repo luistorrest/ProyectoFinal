@@ -16,6 +16,7 @@ SOURCES += \
     mostrarenemigos.cpp \
     mostrarobstaculos.cpp \
     mostrarpersonaje.cpp \
+    mostrarresultados.cpp \
     moverobstaculos.cpp \
     moverpersonaje.cpp \
     opcion.cpp
@@ -27,6 +28,7 @@ HEADERS += \
     mostrarenemigos.h \
     mostrarobstaculos.h \
     mostrarpersonaje.h \
+    mostrarresultados.h \
     moverobstaculos.h \
     moverpersonaje.h \
     opcion.h
@@ -39,6 +41,7 @@ FORMS += \
     mainwindow.ui \
     menu.ui \
     mostrarenemigos.ui \
+    mostrarresultados.ui \
     opcion.ui
 
 

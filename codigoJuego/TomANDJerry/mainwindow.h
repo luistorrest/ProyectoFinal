@@ -18,6 +18,8 @@
 #include <QFileDialog>
 #include <QMediaPlayer>
 
+#include "mostrarresultados.h"
+
 #include "mostrarpersonaje.h"
 #include "moverpersonaje.h"
 
@@ -172,7 +174,9 @@ private:
     int velocidadNivel1=200;
 
     void focus();
-    void colision(mostrarPersonaje* a);//
+    void colision(mostrarPersonaje* a);
+
+    mostrarResultados *resultadoP;
 
 };
 #endif // MAINWINDOW_H

@@ -8,6 +8,7 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
 {
     //Constructor
     ui->setupUi(this);
+    resultadoP=new mostrarResultados();
 
     //Mapa
     QPixmap fondo;
@@ -148,6 +149,7 @@ MainWindow::~MainWindow()
     delete timer2;
     delete scene;
     delete ui;
+    delete resultadoP;
     delete personaje;
     delete click;
 
@@ -434,6 +436,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte2();
 
+                            //RESULTADOS
+                            resultadoP->op=4;
+                            resultadoP->imaganes();
+
                             //QTimer::singleShot(1000,this,SLOT(showMaximized()));
                             QTimer::singleShot(7000,this,SLOT(esperar()));
 
@@ -469,6 +475,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte1();
 
+                            //RESULTADOS
+                            resultadoP->op=3;
+                            resultadoP->imaganes();
+
                             QTimer::singleShot(7000,this,SLOT(esperar()));//se espera un rato mientras terminad de morir
                             //QTimer::singleShot(1000,this,SLOT(showMaximized()));
 
@@ -501,9 +511,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
+                            //RESULTADOS
+                            resultadoP->op=2;
+                            resultadoP->imaganes();
                             QTimer::singleShot(7000,this,SLOT(parar()));
-
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
                             //QTimer::singleShot(500,this,SLOT(esperar()));
 
@@ -532,10 +543,13 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             fondoSound1->setVolume(10);
 
                             personaje->muerte1();
+                            //RESULTADOS
+                            resultadoP->op=1;
+                            resultadoP->imaganes();
+                            resultadoP->show();
                             QTimer::singleShot(7000,this,SLOT(parar()));
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
-                            //QTimer::singleShot(500,this,SLOT(esperar()));
+                           //QTimer::singleShot(500,this,SLOT(esperar()));
 
                         }
                     }
@@ -575,6 +589,9 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
+                            //RESULTADOS
+                            resultadoP->op=4;
+                            resultadoP->imaganes();
                              QTimer::singleShot(7000,this,SLOT(esperar()));
 
                             //AQUI VIENE LA PARTE DE LOS RESULTADOS
@@ -605,7 +622,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             scene->removeItem(hueso.at(i));
                             muerteSound->play();//se reproduce el sonido del GAME OVER
-                            personaje->muerte1(); //muerte2
+                            personaje->muerte1();
+
+                            //RESULTADOS
+                            resultadoP->op=3;
+                            resultadoP->imaganes();
 
                             QTimer::singleShot(7000,this,SLOT(esperar()));
 
@@ -643,7 +664,9 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
 
 
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+                            //RESULTADOS
+                            resultadoP->op=2;
+                            resultadoP->imaganes();
 
                             QTimer::singleShot(7000,this,SLOT(parar()));
 
@@ -674,9 +697,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte1(); //muerte2
 
+                            //RESULTADOS
+                            resultadoP->op=1;
+                            resultadoP->imaganes();
                             QTimer::singleShot(7000,this,SLOT(parar()));
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
-
 
 
                         }
@@ -713,6 +737,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             scene->removeItem(Spyke.at(i));
                             muerteSound->play();//se reproduce el sonido del GAME OVER
                             personaje->muerte2();
+
+                            //RESULTADOS
+                            resultadoP->op=4;
+                            resultadoP->imaganes();
+
                             QTimer::singleShot(7000,this,SLOT(esperar()));
 
                             //AQUI VIENE LA PARTE DE LOS RESULTADOS
@@ -746,6 +775,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte1();
+
+                            //RESULTADOS
+                            resultadoP->op=3;
+                            resultadoP->imaganes();
+
                             QTimer::singleShot(7000,this,SLOT(esperar()));
 
                             //AQUI VIENE LA PARTE DE LOS RESULTADOS
@@ -780,7 +814,9 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte2();
 
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+                            //RESULTADOS
+                            resultadoP->op=2;
+                            resultadoP->imaganes();
 
                             //QTimer::singleShot(500,this,SLOT(esperar()));
                             QTimer::singleShot(7000,this,SLOT(parar()));
@@ -810,10 +846,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte1();
 
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
-
-///                            QTimer::singleShot(500,this,SLOT(esperar()));
+                            //RESULTADOS
+                            resultadoP->op=2;
+                            resultadoP->imaganes();
                             QTimer::singleShot(7000,this,SLOT(parar()));
+//                           QTimer::singleShot(500,this,SLOT(esperar()));
                         }
                     }
                 }
