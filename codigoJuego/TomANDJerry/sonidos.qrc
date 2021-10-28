@@ -4,17 +4,18 @@
         <file>sonidos/click1.mp3</file>
         <file>sonidos/click2.wav</file>
         <file>sonidos/Hueso.mp3</file>
-        <file>sonidos/Spike.mp3</file>
         <file>sonidos/Tyke.mp3</file>
-        <file>sonidos/Trampa.mp3</file>
         <file>sonidos/tom_jerry_8-bit.mp3</file>
         <file>sonidos/click.mp3</file>
         <file>sonidos/Warning.mp3</file>
-        <file>sonidos/Niveles1_2.mp3</file>
-        <file>sonidos/NivelFinal.mp3</file>
         <file>sonidos/PNivel2.mp3</file>
         <file>sonidos/PNivelF.mp3</file>
-        <file>sonidos/Vida.mp3</file>
         <file>sonidos/Moneda1.mp3</file>
+        <file>sonidos/Niveles1_2.mp3</file>
+        <file>sonidos/NivelFinal.mp3</file>
+        <file>sonidos/Vida.mp3</file>
+        <file>sonidos/GameOver.mp3</file>
+        <file>sonidos/Trampa.mp3</file>
+        <file>sonidos/Spike.mp3</file>
     </qresource>
 </RCC>

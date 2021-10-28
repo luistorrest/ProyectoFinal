@@ -12,6 +12,7 @@ mostrarobstaculos::mostrarobstaculos(float x, float y)
     imgTrampa=1;
     imgHueso=1;
     imgTyke=1;
+    imgSpyke=1;
 
     timer= new QTimer();
     timer->start(150);
@@ -67,6 +68,10 @@ void mostrarobstaculos::moverTyke()
 {
      connect(timer,&QTimer::timeout,this,&mostrarobstaculos::tyke);
 }
+void mostrarobstaculos::moverSpyke()
+{
+     connect(timer,&QTimer::timeout,this,&mostrarobstaculos::spyke);
+}
 
 
 
@@ -84,16 +89,6 @@ void mostrarobstaculos::vida()
         imgVida=1;
         w=45; h=35;
         break;
-//    case 3:
-//        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
-//        imgVida++;
-//        w=50; h=40;
-//        break;
-//    case 4:
-//        pixmap.load(":/ImagenesJuego/vidas/Vida1.png");
-//        imgVida=1;
-//        w=45; h=35;
-//        break;
     }
 }
 
@@ -172,6 +167,65 @@ void mostrarobstaculos::tyke()
         break;
 
     }
+}
+
+void mostrarobstaculos::spyke()
+{
+    switch (imgSpyke) {
+    case 1:
+        pixmap.load(":/ImagenesJuego/Spike/Spike9.png");
+        imgSpyke++;
+        w=250; h=250;
+        break;
+    case 2:
+        pixmap.load(":/ImagenesJuego/Spike/Spike9.png");
+        imgSpyke++;
+        w=250; h=250;
+        break;
+    case 3:
+        pixmap.load(":/ImagenesJuego/Spike/Spike9.png");
+        imgSpyke++;
+        w=250; h=250;
+        break;
+    case 4:
+        pixmap.load(":/ImagenesJuego/Spike/Spike11.png");
+        imgSpyke++;
+        w=250; h=250;
+        break;
+    case 5:
+        pixmap.load(":/ImagenesJuego/Spike/Spike11.png");
+        imgSpyke++;
+        w=250; h=250;
+        break;
+    case 6:
+        pixmap.load(":/ImagenesJuego/Spike/Spike11.png");
+        imgSpyke=1;
+        w=250; h=250;
+        break;
+//    case 7:
+//        pixmap.load(":/ImagenesJuego/Spike/Spike7.png");
+//        imgSpyke++;
+//        w=150; h=126;
+//        break;
+//    case 8:
+//        pixmap.load(":/ImagenesJuego/Spike/Spike8.png");
+//        imgSpyke++;
+//        w=150; h=126;
+//        break;
+//    case 9:
+//        pixmap.load(":/ImagenesJuego/Spike/Spike9.png");
+//        imgSpyke++;
+//        w=150; h=126;
+//        break;
+//    case 10:
+//        pixmap.load(":/ImagenesJuego/Spike/SpikeUI.png");
+//        imgSpyke=1;
+//        w=150; h=126;
+//        break;
+
+
+    }
+
 }
 
 //Slots

@@ -24,6 +24,9 @@
 #include "mostrarobstaculos.h"
 #include "moverobstaculos.h"
 
+#include "ui_menu.h"
+
+
 #define dt 0.02
 
 using namespace std;
@@ -88,6 +91,8 @@ private slots:
     void parar(void);
     void ocultar(void);
     void esperar(void);
+    void ganador(void);
+
 //    void Retro(void);
 
 
@@ -99,6 +104,7 @@ private slots:
     void TrampasAleatorias(void);
     void HuesosAleatorios(void);
     void TykeAleatorios();
+    void SpykeAleatorios();
 
     void on_Vida_overflow();
     void on_Distancia_overflow();
@@ -120,6 +126,7 @@ private:
     QTimer *TiempoTrampa;
     QTimer *TiempoHueso;
     QTimer *TiempoTyke;
+    QTimer *TiempoSpyke;
 
 
     QTimer *perder;
@@ -131,6 +138,7 @@ private:
     QList<mostrarobstaculos*> trampa;
     QList<mostrarobstaculos*> hueso;
     QList<mostrarobstaculos*> tyke;
+    QList<mostrarobstaculos*> Spyke;
 
     //sonidos para la mainwindow
     QMediaPlayer* click;
@@ -143,6 +151,8 @@ private:
     QMediaPlayer* trampaSound;
     QMediaPlayer* huesoSound;
     QMediaPlayer* tykeSound;
+    QMediaPlayer* SpykeSound;
+    QMediaPlayer* muerteSound;
 
 
     //contadores para la cantidad de objetos
@@ -151,6 +161,7 @@ private:
     int numeroTrampas;
     int numeroHuesos;
     int numeroTykes;
+    int numeroSpykes;
 
 
     //multijugador

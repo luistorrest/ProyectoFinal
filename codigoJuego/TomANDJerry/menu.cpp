@@ -40,6 +40,7 @@ void Menu::on_UnJugador_clicked()
 
 void Menu::on_Multijugador_clicked()
 {
+
     click->play();
     iniciar->jugador2=false;
     iniciar->Multiplayer=true;
@@ -54,6 +55,7 @@ void Menu::on_pushButton_clicked()
 {
     click->play();
     menuSound->stop();
+
 }
 
 void Menu::on_actionEnemigos_triggered()

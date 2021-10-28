@@ -44,6 +44,7 @@ public:
     void moverTrampa();
     void moverHueso();
     void moverTyke();
+    void moverSpyke();
 
     //Imagenes
     int imgVida;
@@ -51,6 +52,7 @@ public:
     int imgTrampa;
     int imgHueso;
     int imgTyke;
+    int imgSpyke;
 
 private slots:
     //sprites
@@ -59,6 +61,7 @@ private slots:
     void trampa();
     void hueso();
     void tyke();
+    void spyke();
 
 };
 

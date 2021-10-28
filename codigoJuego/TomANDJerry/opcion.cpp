@@ -16,15 +16,10 @@ opcion::opcion(QWidget *parent) :QWidget(parent),ui(new Ui::opcion)
     selectSound->setMedia(QUrl("qrc:/sonidos/sonidos/click.mp3"));
     selectSound->setVolume(50);
 
-    opcionSound=new QMediaPlayer(this);
-    opcionSound->setMedia(QUrl("qrc:/sonidos/sonidos/tom_jerry_8-bit.mp3"));
-    opcionSound->setVolume(20);
-
     warning=new QMediaPlayer(this);
     warning->setMedia(QUrl("qrc:/sonidos/sonidos/Warning.mp3"));
     warning->setVolume(80);
 
-    opcionSound->play();
 
 
 }
@@ -35,13 +30,11 @@ opcion::~opcion()
     delete click;
     delete  selectSound;
     delete  warning;
-    delete opcionSound;
+
 }
 
 void opcion::on_Iniciar_clicked()
 {
-
-    opcionSound->stop();
     if(multijuador==false){
         if(p1==0 && p2==0){
 
@@ -98,7 +91,6 @@ void opcion::on_pushButton_clicked()
                                   QMessageBox::Yes|QMessageBox::No);
 
     if(reply==QMessageBox::Yes){
-        opcionSound->stop();
         this->close();
     }
 }

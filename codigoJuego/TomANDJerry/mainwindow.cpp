@@ -63,6 +63,13 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     huesoSound->setMedia(QUrl("qrc:/sonidos/sonidos/Hueso.mp3"));
     huesoSound->setVolume(60);
 
+    SpykeSound=new QMediaPlayer();
+    SpykeSound->setMedia(QUrl("qrc:/sonidos/sonidos/Spike.mp3"));
+    SpykeSound->setVolume(60);
+
+    muerteSound=new QMediaPlayer();
+    muerteSound->setMedia(QUrl("qrc:/sonidos/sonidos/GameOver.mp3"));
+    muerteSound->setVolume(60);
 
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
@@ -84,6 +91,10 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     TiempoTyke=new QTimer(this);
     TiempoTyke->stop();
 
+    TiempoSpyke=new QTimer(this);
+    TiempoSpyke->stop();
+
+
     //connecion de señales y slots
     connect(timer,SIGNAL(timeout()),this,SLOT(actualizar()));
     connect(timer2,SIGNAL(timeout()),this,SLOT(actualizar2()));
@@ -93,13 +104,21 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     connect(TiempoMonedas,SIGNAL(timeout()),this,SLOT(MonedasAleatorias()));
 
     //*********************
-    //connect(perder,SIGNAL(timeout()),this,SLOT(esperar()));
+    connect(perder,SIGNAL(timeout()),this,SLOT(esperar()));
 
+    perder=new QTimer(this);
+    perder->stop();
+    ganar=new QTimer(this);
+    ganar->stop();
+
+    //--------------------------
+    connect(ganar,SIGNAL(timeout()),this,SLOT(ganador()));
 
     //coneccion de señales para los enemigos
     connect(TiempoTrampa,SIGNAL(timeout()),this,SLOT(TrampasAleatorias()));
     connect(TiempoHueso,SIGNAL(timeout()),this,SLOT(HuesosAleatorios()));
     connect(TiempoTyke,SIGNAL(timeout()),this,SLOT(TykeAleatorios()));
+    connect(TiempoSpyke,SIGNAL(timeout()),this,SLOT(SpykeAleatorios()));
 
     //Semilla para generar objetos al azar
      srand(time(NULL));
@@ -118,7 +137,8 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
          numeromonedas=1000;
          numeroTrampas=1400;
          numeroHuesos=2000;
-         numeroTykes=4000;
+         numeroTykes=6000;
+         numeroSpykes=8000;
      }
 }
 
@@ -136,6 +156,7 @@ MainWindow::~MainWindow()
     delete TiempoTrampa;
     delete TiempoHueso;
     delete TiempoTyke;
+    delete TiempoSpyke;
 
     delete fondoSound1;
     delete cortina1Sound;
@@ -144,12 +165,18 @@ MainWindow::~MainWindow()
     delete monedaSound;
     delete trampaSound;
     delete huesoSound;
+    delete SpykeSound;
+    delete muerteSound;
+
+    delete ganar;
+    delete perder;
 
     monedas.clear();
     vida.clear();
     trampa.clear();
     hueso.clear();
     tyke.clear();
+    Spyke.clear();
 
 }
 
@@ -177,6 +204,12 @@ void MainWindow::on_actionIniciar_triggered()
     TiempoTrampa->start(numeroTrampas); 
     TiempoTyke->start(numeroTykes);
 
+    if(distanciaLCD>=8680)
+        TiempoHueso->start(numeroHuesos);
+
+    if(distanciaLCD>=17720)
+        TiempoSpyke->start(numeroSpykes);
+
 }
 void MainWindow::on_actionDetener_triggered()
 {
@@ -195,6 +228,7 @@ void MainWindow::on_actionDetener_triggered()
     TiempoTrampa->stop();
     TiempoHueso->stop();
     TiempoTyke->stop();
+    TiempoSpyke->stop();
 
 
 }
@@ -249,6 +283,11 @@ void MainWindow::actualizar()
         monedas.at(i)->actualizarMoneda(dt);
     }
 
+
+    //Se actualizan los movimientos de los enemigos
+    for(int i=0;i<trampa.size();i++){
+        trampa.at(i)->actualizar(dt);
+    }
     for(int i=0;i<hueso.size();i++){
         hueso.at(i)->actualizarHueso(dt);
 
@@ -258,10 +297,10 @@ void MainWindow::actualizar()
         tyke.at(i)->actualizarTyke(dt);
     }
 
-    //Se actualizan los movimientos de los enemigos
-    for(int i=0;i<trampa.size();i++){
-        trampa.at(i)->actualizar(dt);
+    for(int i=0;i<Spyke.size();i++){
+        Spyke.at(i)->actualizar(dt);
     }
+
 
    //focus personaje y movimiento
     distanciaLCD=personaje->getPersonaje()->getPx();//se le asigna al contador de distancia la posicion a la qu eva avanzando el personaje   
@@ -288,9 +327,6 @@ void MainWindow::actualizar()
         numeroTrampas=1600;
         TiempoTrampa->stop();
         TiempoTrampa->start(numeroTrampas);//las trampas apareceran menos seguidas
-
-
-
     }
     else if(distanciaLCD>=17600)   //NIVEL 3
     {       
@@ -303,13 +339,16 @@ void MainWindow::actualizar()
             TiempoVida->stop();
             TiempoVida->start(numeroVidas);//las vidas apareceran menos seguidas
 
-            numeroTrampas=2500;
+            numeroTrampas=3000;
             TiempoTrampa->stop();//Quitamos las trampas del tercer nivel
             TiempoTrampa->start(numeroTrampas);
 
             numeroHuesos=4000;
             TiempoHueso->stop();
             TiempoHueso->start(numeroHuesos);//hacemos que salgan menos huesos porque aumentamos los tykes y aparecera otro enemigo
+
+            TiempoSpyke->stop();
+            TiempoSpyke->start(numeroSpykes);
 
         }
 
@@ -340,13 +379,13 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
     for(int i=0;i<vida.size();i++){
         if(a->collidesWithItem(vida.at(i))){
             vidaSound->play();
-            if(contadorVidas==6){
+            if(contadorVidas==5){
                scene->removeItem(vida.at(i));
                vida.removeAt(i);
 
 
             }
-            else if (contadorVidas<6) {
+            else if (contadorVidas<5) {
                 scene->removeItem(vida.at(i));
                 vida.removeAt(i);
                 contadorVidas++;
@@ -386,10 +425,20 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoMonedas->stop();
                             TiempoVida->stop();
 
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             scene->removeItem(trampa.at(i));
-                            //explosion->play();
+
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
+
+                            //QTimer::singleShot(1000,this,SLOT(showMaximized()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
                             jugador2=false;
                         }
                     }
@@ -409,21 +458,26 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoTyke->stop();
                             TiempoHueso->stop();
 
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             TiempoMonedas->stop();
                             TiempoVida->stop();
 
                             scene->removeItem(trampa.at(i));
-                            personaje->muerte1();
-                            QTimer::singleShot(20,this,SLOT(ocultar()));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
-                            QTimer::singleShot(20,this,SLOT(esperar()));
-                            QTimer::singleShot(20,this,SLOT(showMaximized()));
+                            personaje->muerte1();
+
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//se espera un rato mientras terminad de morir
+                            //QTimer::singleShot(1000,this,SLOT(showMaximized()));
 
                         }
                     }
                 }
                 //PARA UN SOLO JUGADOR
                 else {
+
                     if(jugador2){
                         if(contadorVidas>0){
                             scene->removeItem(trampa.at(i));
@@ -437,15 +491,22 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoTrampa->stop();
                             TiempoMonedas->stop();
 
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             TiempoVida->stop();
                             TiempoMonedas->stop();
                             scene->removeItem(trampa.at(i));
-                            fondoSound1->setVolume(10);
+
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
-                            //QTimer::singleShot(800,this,SLOT(ocultar()));
+                            QTimer::singleShot(7000,this,SLOT(parar()));
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
                             //QTimer::singleShot(500,this,SLOT(esperar()));
-                            QTimer::singleShot(2000,this,SLOT(parar()));
+
                         }
                     }
                     else {  //JUGADOR 1
@@ -461,15 +522,21 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoHueso->stop();
                             TiempoTrampa->stop();
 
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             TiempoMonedas->stop();
                             TiempoVida->stop();
                             scene->removeItem(trampa.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
                             fondoSound1->setVolume(10);
 
                             personaje->muerte1();
-//                            QTimer::singleShot(4000,this,SLOT(ocultar()));
-//                            QTimer::singleShot(500,this,SLOT(esperar()));
-                            QTimer::singleShot(2000,this,SLOT(parar()));
+                            QTimer::singleShot(7000,this,SLOT(parar()));
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
+                            //QTimer::singleShot(500,this,SLOT(esperar()));
+
                         }
                     }
                 }
@@ -488,7 +555,7 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                         if(contadorVidas>0){
                             scene->removeItem(hueso.at(i));
                             hueso.removeAt(i);
-                            contadorVidas-=2;
+                            contadorVidas--;
 
                         }
                         //Muere el personaje 2
@@ -500,13 +567,17 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             TiempoMonedas->stop();
                             TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             scene->removeItem(hueso.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
+                             QTimer::singleShot(7000,this,SLOT(esperar()));
 
-                            QTimer::singleShot(820,this,SLOT(ocultar()));
-
-                           //Muestra en pantalla los resultados
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
 
                            jugador2=false;
@@ -517,7 +588,7 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             scene->removeItem(hueso.at(i));
                             hueso.removeAt(i);
-                            contadorVidas-=2;
+                            contadorVidas--;
 
                         }
                         //Muere el personaje 1
@@ -525,18 +596,21 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             timer->stop();
                             TiempoTyke->stop();
                             TiempoTrampa->stop();
-                            TiempoHueso->stop();
-
-
+                            TiempoHueso->stop();                          
                             TiempoMonedas->stop();
                             TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             scene->removeItem(hueso.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
+                            personaje->muerte1(); //muerte2
 
-                            personaje->muerte2(); //muerte2
+                            QTimer::singleShot(7000,this,SLOT(esperar()));
 
-                            //Muestra en pantalla los resultados
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
-//                            QTimer::singleShot(7000,this,SLOT(esperar()));
 //                            QTimer::singleShot(7000,this,SLOT(showMaximized()));
 
                         }
@@ -548,7 +622,7 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                         if(contadorVidas>0){
                             scene->removeItem(hueso.at(i));
                             hueso.removeAt(i);
-                            contadorVidas-=2;
+                            contadorVidas--;
                         }
                         //CUANDO YA NO TENGA VIDAS
                         else {
@@ -556,17 +630,22 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoTyke->stop();
                             TiempoTrampa->stop();
                             TiempoHueso->stop();
-
                             TiempoMonedas->stop();
                             TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
                             scene->removeItem(hueso.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
-
-                            fondoSound1->setVolume(10);
                             personaje->muerte2(); //muerte2
 
-//                            QTimer::singleShot(7000,this,SLOT(esperar()));
-//                            QTimer::singleShot(7000,this,SLOT(parar()));
+
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
+                            QTimer::singleShot(7000,this,SLOT(parar()));
 
                         }
                     }
@@ -576,7 +655,7 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             scene->removeItem(hueso.at(i));
                             hueso.removeAt(i);
-                            contadorVidas-=2;
+                            contadorVidas--;
                         }
                         //CUANDO YA NO TIENE VIDAS
                         else {
@@ -584,19 +663,157 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             TiempoTyke->stop();
                             TiempoTrampa->stop();
                             TiempoHueso->stop();
-
                             TiempoMonedas->stop();
                             TiempoVida->stop();
-                            scene->removeItem(hueso.at(i));
 
-                            fondoSound1->setVolume(10);
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
+                            scene->removeItem(hueso.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte1(); //muerte2
-//                            QTimer::singleShot(1100,this,SLOT(ocultar()));
 
-//                            QTimer::singleShot(7000,this,SLOT(esperar()));
-//                            QTimer::singleShot(7000,this,SLOT(parar()));
+                            QTimer::singleShot(7000,this,SLOT(parar()));
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
+
+
+                        }
+                    }
+                }
+            }
+        }
+
+//------------------------COLISION CON LOS SPIKES-----------------------------------
+        //PARA MULTIJUGADOR
+        for(int i=0;i<Spyke.size();i++){
+            if(personaje->collidesWithItem(Spyke.at(i))){
+                SpykeSound->play();
+                if(dosjugadores){//si son dos jugadores
+                    if(jugador2){//si escogio el jugador2
+                        if(contadorVidas>0){//SI EL PERSONAJE AUN CUENTA CON VIDAS
+                            scene->removeItem(Spyke.at(i));
+                            Spyke.removeAt(i);
+                            contadorVidas=0;
+                        }
+                        //muere el personaje 2
+                        else {//SI EL PERSONAJE YA NO TIENE VIDAS
+                            timer->stop();
+                            TiempoHueso->stop();
+                            TiempoTyke->stop();
+                            TiempoTrampa->stop();
+                            TiempoSpyke->stop();
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
+                            scene->removeItem(Spyke.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
+                            personaje->muerte2();
+                            QTimer::singleShot(7000,this,SLOT(esperar()));
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
+                            jugador2=false;
+                        }
+                    }
+                    //para el caso en el que el jugador este jugando con el personaje#1
+                    else {
+                        if(contadorVidas>0){//SI EL PERSONAJE AUN CUENTA CON VIDAS
+
+                            scene->removeItem(Spyke.at(i));
+                            Spyke.removeAt(i);
+                            contadorVidas=0;
+
+                        }
+                        //MUERE PERSONAJE 1
+                        else {//SI EL PERSONAJE YA NO TIENE VIDAS
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoTyke->stop();
+                            TiempoHueso->stop();
+                            TiempoSpyke->stop();
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
+                            scene->removeItem(Spyke.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
+
+                            personaje->muerte1();
+                            QTimer::singleShot(7000,this,SLOT(esperar()));
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+                            //QTimer::singleShot(20,this,SLOT(showMaximized()));
+
+                        }
+                    }
+                }
+                //PARA UN SOLO JUGADOR
+                else {
+                    if(jugador2){
+                        if(contadorVidas>0){
+                            scene->removeItem(Spyke.at(i));
+                            Spyke.removeAt(i);
+                            contadorVidas=0;
+                        }
+                        else {
+                            //CUANDO MUERE EL PERSONAJE 2
+                            timer->stop();
+                            TiempoTyke->stop();
+                            TiempoTrampa->stop();
+                            TiempoMonedas->stop();
+                            TiempoSpyke->stop();
+                            TiempoVida->stop();
+                            TiempoMonedas->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
+                            scene->removeItem(Spyke.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
+
+                            personaje->muerte2();
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
+                            //QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(parar()));
+                        }
+                    }
+                    else {  //JUGADOR 1
+                        if(contadorVidas>0){
+                            scene->removeItem(Spyke.at(i));
+                            Spyke.removeAt(i);
+                            contadorVidas=0;
+                        }
+                        else {
+                            //CUANDO MUERE EL  JUGADOR 1
+                            timer->stop();
+                            TiempoTrampa->stop();
+                            TiempoHueso->stop();
+                            TiempoTrampa->stop();
+                            TiempoSpyke->stop();
+                            TiempoMonedas->stop();
+                            TiempoVida->stop();
+
+                            fondoSound1->stop();
+                            fondoSound2->stop();
+
+                            scene->removeItem(Spyke.at(i));
+                            muerteSound->play();//se reproduce el sonido del GAME OVER
+
+                            personaje->muerte1();
+
+                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+
+///                            QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(parar()));
                         }
                     }
                 }
@@ -640,6 +857,7 @@ void MainWindow::reiniciar()
     TiempoTrampa->stop();
     TiempoHueso->stop();
     TiempoTyke->stop();
+    TiempoSpyke->stop();
 
     TiempoVida->stop();
     TiempoMonedas->stop();
@@ -671,6 +889,7 @@ void MainWindow::reiniciarMultijugador()
     TiempoTrampa->stop();
     TiempoHueso->stop();
     TiempoTyke->stop();
+    TiempoSpyke->stop();
 
     TiempoVida->stop();
     TiempoMonedas->stop();
@@ -723,6 +942,10 @@ void MainWindow::quitarelementos()
         scene->removeItem(tyke.at(i));
     }
 
+    for(int i=0;i<Spyke.size();i++){
+        scene->removeItem(Spyke.at(i));
+    }
+
 
     scene->removeItem(personaje);
 
@@ -734,6 +957,7 @@ void MainWindow::borrarelementos()
     trampa.clear();
     hueso.clear();
     tyke.clear();
+    Spyke.clear();
 
     delete personaje;
 }
@@ -757,6 +981,8 @@ void MainWindow::unjugador()
 }
 void MainWindow::multijugador()
 {
+
+
     if(dosjugadores){
         if(jugador2){
             personaje=new mostrarPersonaje(0,0);
@@ -833,6 +1059,32 @@ void MainWindow::ocultar()
 
     if(Multiplayer==false){
         //Lose->play();
+    }
+}
+
+void MainWindow::ganador()
+{
+    if(puntaje1<puntaje2){
+        //resultadoP->op=8;
+        //resultadoP->imaganes();
+        //resultadoP->show();
+        //win2->play();
+        MainWindow::hide();
+        QTimer::singleShot(14000,this,SLOT(parar()));
+        //QTimer::singleShot(15000,resultadoP,SLOT(close()));
+
+        reiniciar();
+    }
+    else {
+//        resultadoP->op=7;
+//        resultadoP->imaganes();
+//        resultadoP->show();
+//        win2->play();
+        MainWindow::hide();
+        QTimer::singleShot(14000,this,SLOT(parar()));
+//        QTimer::singleShot(15000,resultadoP,SLOT(close()));
+
+        reiniciar();
     }
 }
 
@@ -921,5 +1173,22 @@ void MainWindow:: TykeAleatorios()
     if(tyke.front()->getItem()->getPx()<=0){
         scene->removeItem(tyke.front());
         tyke.pop_front();
+    }
+}
+
+void MainWindow::SpykeAleatorios()
+{
+    float py,vx=0;
+    py=rand() % 280+1;//posicion en y
+    vx=250;
+
+    Spyke.append(new mostrarobstaculos(personaje->getPersonaje()->getPx()+1000,py));
+    Spyke.last()->moverSpyke();
+    Spyke.last()->getItem()->setVel(vx,0);
+    scene->addItem(Spyke.last());
+
+    if(Spyke.front()->getItem()->getPx()<=0){
+        scene->removeItem(Spyke.front());
+        Spyke.pop_front();
     }
 }

@@ -48,25 +48,11 @@
         <file>ImagenesJuego/Muerte2/MuerteJerry1.png</file>
         <file>ImagenesJuego/Muerte2/MuerteJerry2.png</file>
         <file>ImagenesJuego/Fondos/fondoJuego.png</file>
-        <file>ImagenesJuego/Spike/Spike1.png</file>
-        <file>ImagenesJuego/Spike/Spike2.png</file>
-        <file>ImagenesJuego/Spike/Spike3.png</file>
-        <file>ImagenesJuego/Spike/spike4.png</file>
-        <file>ImagenesJuego/Spike/Spike5.png</file>
-        <file>ImagenesJuego/Spike/Spike6.png</file>
-        <file>ImagenesJuego/Spike/Spike7.png</file>
-        <file>ImagenesJuego/Spike/Spike8.png</file>
         <file>ImagenesJuego/Spike/Spike9.png</file>
-        <file>ImagenesJuego/Spike/Spike10.png</file>
         <file>ImagenesJuego/Spike/Spike11.png</file>
-        <file>ImagenesJuego/Spike/Spike12.png</file>
-        <file>ImagenesJuego/Spike/Spike13.png</file>
-        <file>ImagenesJuego/Spike/Spike14.png</file>
-        <file>ImagenesJuego/Spike/Spike15.png</file>
-        <file>ImagenesJuego/Spike/Spike16.png</file>
-        <file>ImagenesJuego/Spike/SpikeUl.png</file>
         <file>ImagenesJuego/Tyke/Spykebravo.png</file>
         <file>ImagenesJuego/Hueso/Hueso3.png</file>
+        <file>ImagenesJuego/Otros/EnemigosAll.png</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

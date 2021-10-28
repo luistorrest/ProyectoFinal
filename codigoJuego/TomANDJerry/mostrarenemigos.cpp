@@ -5,7 +5,7 @@ mostrarenemigos::mostrarenemigos(QWidget *parent) :QDialog(parent),ui(new Ui::mo
 {
     ui->setupUi(this);
     tyke= new QMediaPlayer(this);//
-    tyke->setMedia(QUrl("qrc:/sonidos/sonidos/Tyke.mp3"));
+    tyke->setMedia(QUrl("qrc:/sonidos/sonidos/Spike.mp3"));
 
     hueso= new QMediaPlayer(this);
     hueso->setMedia(QUrl("qrc:/sonidos/sonidos/Hueso.mp3"));
@@ -49,8 +49,7 @@ void mostrarenemigos::on_pushButton_clicked()
 
         ui->BotonHueso->show();
         ui->text2->show();
-        ui->text2->setGeometry(20,10,521,371);
-        ui->text1->hide();
+        ui->text2->setGeometry(20,10,521,371);        
         contador++;
     }
     else if(contador==3){
