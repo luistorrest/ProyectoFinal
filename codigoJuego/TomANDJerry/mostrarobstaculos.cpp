@@ -69,6 +69,7 @@ void mostrarobstaculos::moverTyke()
 }
 
 
+
 //-----------------Animicaiones de los objetos(es decir las imagenes)-----------------
 void mostrarobstaculos::vida()
 {
@@ -154,52 +155,10 @@ void mostrarobstaculos::hueso()
 {
     switch (imgHueso) {
     case 1:
-        pixmap.load("::/ImagenesJuego/Hueso/Hueso0.png");
-        imgHueso++;
+        pixmap.load(":/ImagenesJuego/Hueso/Hueso3.png");
+        imgHueso=1;
         w=90; h=66;
         break;
-    case 2:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso1.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 3:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso2.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 4:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso3.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-
-    case 5:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso4.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 6:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso5.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 7:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso6.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 8:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso7.png");
-        imgHueso++;
-        w=90 ;h=66;
-        break;
-    case 9:
-        pixmap.load(":/ImagenesJuego/Hueso/Hueso8.png");
-        imgHueso=1;
-        w=90 ;h=66;
-        break;
-
     }
 }
 
@@ -207,15 +166,11 @@ void mostrarobstaculos::tyke()
 {
     switch (imgTyke) {
     case 1:
-        pixmap.load(":/ImagenesJuego/Tyke/tyke1.png");
-        imgTyke++;
-        w=90; h=66;
-        break;
-    case 2:
-        pixmap.load(":/ImagenesJuego/Tyke/tyke2.png");
+        pixmap.load(":/ImagenesJuego/Tyke/Spykebravo.png");
         imgTyke=1;
         w=90; h=66;
         break;
+
     }
 }
 

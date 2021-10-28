@@ -71,15 +71,18 @@ void moverobstaculos::ActualizarHueso(float dt)
 
 void moverobstaculos::ActualizarTyke(float dt)
 {
+
     //    ECUACIONES DE MOV CIRCULAR UNIFORME:
     //    X(n)=(X(n-1)-Cx)*cos(wT)-(Y(n-1)-cy)*sen(wT)+cx
     //    Y(n)=(Y(n-1)-Cy)*cos(wT)+(X(n-1)-cx)*sen(wT)+cy
-    acelerar(dt);
-    vx=0;
-    vy=vy+ay*dt;
-    px-=vx*dt+(ax*pow(0.25,2))/0.5;
-    py=py+vy*dt+(ay*pow(0.25,2))/0.5;
-    //px-=(ax*pow(0.25,2))/0.5;
+        float aux,auxy;
+
+        aux=px-cx;
+        auxy=py-cy;
+
+        px=(aux)*cos(vx*dt)-(auxy)*sin(vx*dt)+cx;
+        py=(auxy)*cos(vx*dt)+(aux)*sin(vx*dt)+cy;
+
 }
 
 void moverobstaculos::acelerar(float dt)
@@ -115,6 +118,7 @@ void moverobstaculos::setPy(float value)
 void moverobstaculos::setVel(float x, float y)
 {
     vx=x;
+
 }
 float moverobstaculos::getVx() const
 {

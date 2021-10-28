@@ -66,8 +66,6 @@ public:
     QList<float> hue;
     QList<float> tyk;
 
-    float posX=0;
-    float posY=0;
 
     //cuenta LCD
     int contadorVidas;
@@ -100,7 +98,7 @@ private slots:
     //enemigos aleatorios
     void TrampasAleatorias(void);
     void HuesosAleatorios(void);
-    void TykeAleatorios(void);
+    void TykeAleatorios();
 
     void on_Vida_overflow();
     void on_Distancia_overflow();
@@ -164,5 +162,6 @@ private:
 
     void focus();
     void colision(mostrarPersonaje* a);//
+
 };
 #endif // MAINWINDOW_H
