@@ -48,6 +48,7 @@ public:
     //metodos de simualcion
     void reiniciar();//metodo para reiniciar el juego desde cero
     void reiniciarMultijugador();
+    void calcularPuntaje();
 
     //metodos get-set
     void setDosjugadores(bool value);
@@ -70,6 +71,10 @@ public:
     QList<float> tram;//trampa
     QList<float> hue;
     QList<float> tyk;
+    QList<float> spyk;
+
+    float posX=0;
+    float posY=0;
 
 
     //cuenta LCD
@@ -175,6 +180,7 @@ private:
 
     void focus();
     void colision(mostrarPersonaje* a);
+    void ponerValores();
 
     mostrarResultados *resultadoP;
 

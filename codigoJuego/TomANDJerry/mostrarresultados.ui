@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1149</width>
-    <height>547</height>
+    <width>1400</width>
+    <height>739</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QLabel" name="Distancia_2">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>120</y>
+     <x>950</x>
+     <y>290</y>
      <width>221</width>
      <height>51</height>
     </rect>
@@ -35,8 +35,8 @@
   <widget class="QLabel" name="Monedas">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>190</y>
+     <x>580</x>
+     <y>350</y>
      <width>221</width>
      <height>51</height>
     </rect>
@@ -54,8 +54,8 @@
   <widget class="QLabel" name="Total">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>320</y>
+     <x>570</x>
+     <y>430</y>
      <width>261</width>
      <height>71</height>
     </rect>
@@ -77,8 +77,8 @@
   <widget class="QLabel" name="Monedas_2">
    <property name="geometry">
     <rect>
-     <x>430</x>
-     <y>180</y>
+     <x>940</x>
+     <y>350</y>
      <width>231</width>
      <height>51</height>
     </rect>
@@ -96,8 +96,8 @@
   <widget class="QLabel" name="Distancia">
    <property name="geometry">
     <rect>
-     <x>130</x>
-     <y>120</y>
+     <x>590</x>
+     <y>290</y>
      <width>211</width>
      <height>51</height>
     </rect>
@@ -115,8 +115,8 @@
   <widget class="QLabel" name="Total_2">
    <property name="geometry">
     <rect>
-     <x>420</x>
-     <y>300</y>
+     <x>920</x>
+     <y>430</y>
      <width>271</width>
      <height>71</height>
     </rect>
@@ -135,7 +135,32 @@
     <string>123456789</string>
    </property>
   </widget>
+  <widget class="QLabel" name="fondo">
+   <property name="geometry">
+    <rect>
+     <x>450</x>
+     <y>200</y>
+     <width>881</width>
+     <height>501</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="Imagenes.qrc">:/ImagenesJuego/Fondos/504.jpg</pixmap>
+   </property>
+  </widget>
+  <zorder>fondo</zorder>
+  <zorder>Distancia_2</zorder>
+  <zorder>Monedas</zorder>
+  <zorder>Total</zorder>
+  <zorder>Monedas_2</zorder>
+  <zorder>Distancia</zorder>
+  <zorder>Total_2</zorder>
  </widget>
- <resources/>
+ <resources>
+  <include location="Imagenes.qrc"/>
+ </resources>
  <connections/>
 </ui>

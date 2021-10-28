@@ -314,7 +314,7 @@ void MainWindow::actualizar()
     //colision para los personajes con los objetos que apareceran en la escena
     colision(personaje);
 
-    //DIFFICULTAD
+    //-----------------------DIFFICULTAD-----------------------
     //Aqui se cambiará el sonido de fondo cuando cambie al nivel 2
     if(distanciaLCD>=8680 && distanciaLCD<=8780  ){
         cortina1Sound->play();//sonido para el cambio al nivel2
@@ -355,6 +355,15 @@ void MainWindow::actualizar()
         }
 
     }
+    //---------------GUARDAR VALORES PARA RESULTADOS--------------------
+    //Guardar datos en ejecucion
+    fstream escritura;
+    escritura.open("Guardar.txt",ios::out);
+    escritura<<personaje->getPersonaje()->getPx()<<"\t"
+             <<personaje->getPersonaje()->getPy()<<"\t"
+             <<personaje->getPersonaje()->getVx()<<"\t"
+            <<contadorVidas<<"\t"<<distanciaLCD<<"\t"<<MonedasLCD<<"\t";
+   escritura.close();
 
 }
 
@@ -440,15 +449,15 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             resultadoP->op=4;
                             resultadoP->imaganes();
 
-                            //QTimer::singleShot(1000,this,SLOT(showMaximized()));
-                            QTimer::singleShot(7000,this,SLOT(esperar()));
-
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(8000,this,SLOT(ganador()));//llamo a la funcion ganador
 
                             jugador2=false;
                         }
                     }
-                    //para el caso en el que el jugador este jugando con el personaje#2
+                    //para el caso en el que el jugador este jugando con el personaje#1
                     else {
                         if(contadorVidas>0){//SI EL PERSONAJE AUN CUENTA CON VIDAS
 
@@ -475,12 +484,14 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
                             personaje->muerte1();
 
+
                             //RESULTADOS
                             resultadoP->op=3;
                             resultadoP->imaganes();
 
-                            QTimer::singleShot(7000,this,SLOT(esperar()));//se espera un rato mientras terminad de morir
-                            //QTimer::singleShot(1000,this,SLOT(showMaximized()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7200,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(9000,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
                         }
                     }
@@ -511,12 +522,18 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             muerteSound->play();//se reproduce el sonido del GAME OVER
 
                             personaje->muerte2();
+
+
                             //RESULTADOS
                             resultadoP->op=2;
                             resultadoP->imaganes();
-                            QTimer::singleShot(7000,this,SLOT(parar()));
 
-                            //QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
+
 
                         }
                     }
@@ -543,13 +560,17 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             fondoSound1->setVolume(10);
 
                             personaje->muerte1();
+
+
                             //RESULTADOS
                             resultadoP->op=1;
                             resultadoP->imaganes();
-                            resultadoP->show();
-                            QTimer::singleShot(7000,this,SLOT(parar()));
 
-                           //QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
                         }
                     }
@@ -592,9 +613,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             //RESULTADOS
                             resultadoP->op=4;
                             resultadoP->imaganes();
-                             QTimer::singleShot(7000,this,SLOT(esperar()));
-
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(8000,this,SLOT(ganador()));//llamo a la funcion ganador
 
 
                            jugador2=false;
@@ -628,11 +650,9 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             resultadoP->op=3;
                             resultadoP->imaganes();
 
-                            QTimer::singleShot(7000,this,SLOT(esperar()));
-
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
-
-//                            QTimer::singleShot(7000,this,SLOT(showMaximized()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7200,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(9000,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
                         }
                     }
@@ -667,8 +687,12 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             //RESULTADOS
                             resultadoP->op=2;
                             resultadoP->imaganes();
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
-                            QTimer::singleShot(7000,this,SLOT(parar()));
 
                         }
                     }
@@ -700,8 +724,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             //RESULTADOS
                             resultadoP->op=1;
                             resultadoP->imaganes();
-                            QTimer::singleShot(7000,this,SLOT(parar()));
-
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
                         }
                     }
@@ -741,8 +768,10 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             //RESULTADOS
                             resultadoP->op=4;
                             resultadoP->imaganes();
-
-                            QTimer::singleShot(7000,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(8000,this,SLOT(ganador()));//llamo a la funcion ganador
 
                             //AQUI VIENE LA PARTE DE LOS RESULTADOS
 
@@ -780,10 +809,9 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             resultadoP->op=3;
                             resultadoP->imaganes();
 
-                            QTimer::singleShot(7000,this,SLOT(esperar()));
-
-                            //AQUI VIENE LA PARTE DE LOS RESULTADOS
-                            //QTimer::singleShot(20,this,SLOT(showMaximized()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7200,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(9000,resultadoP,SLOT(close()));//cierro la vemtana resultados
 
                         }
                     }
@@ -818,8 +846,12 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             resultadoP->op=2;
                             resultadoP->imaganes();
 
-                            //QTimer::singleShot(500,this,SLOT(esperar()));
-                            QTimer::singleShot(7000,this,SLOT(parar()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
+
                         }
                     }
                     else {  //JUGADOR 1
@@ -849,8 +881,11 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
                             //RESULTADOS
                             resultadoP->op=2;
                             resultadoP->imaganes();
-                            QTimer::singleShot(7000,this,SLOT(parar()));
-//                           QTimer::singleShot(500,this,SLOT(esperar()));
+                            QTimer::singleShot(7000,this,SLOT(esperar()));//espero un momento para que termine de perder
+                            QTimer::singleShot(7050,this,SLOT(ocultar()));//oculto el mainwindow para ver resultados
+                            QTimer::singleShot(7051,resultadoP,SLOT(showMaximized()));//muestro los resultados
+                            QTimer::singleShot(12000,this,SLOT(parar()));//me voy nuevamente al menu
+                            QTimer::singleShot(12010,resultadoP,SLOT(close()));//cierro la vemtana resultados
                         }
                     }
                 }
@@ -858,6 +893,53 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
         }
 
 
+}
+void MainWindow::ponerValores()
+{
+//    if(posX>=500){
+//        scene->setSceneRect(posX-300,0,1000,496);
+//    }
+
+
+//    for(int i=0;i<tram.size();i+=3){
+//        trampa.append(new mostrarobstaculos(tram.at(i),tram.at(i+1)));
+//        trampa.last()->moverTrampa();
+//        trampa.last()->getItem()->setVel(150,0);
+//        scene->addItem(trampa.last());
+//    }
+
+//    for(int i=0;i<raseng.size();i+=3){
+//        rasengan.append(new obstaculoGraf(raseng.at(i),raseng.at(i+1)));
+//        rasengan.last()->moverRasengan();
+//        rasengan.last()->getItem()->setVel(120,0);
+//        scene->addItem(rasengan.last());
+//    }
+
+//    for(int i=0;i<ray.size();i+=3){
+//        rayos.append(new mostrarobstaculos(ray.at(i),ray.at(i+1)));
+//        rayos.last()->moverRayos();
+//        rayos.last()->getItem()->setVel(150,0);
+//        scene->addItem(rayos.last());
+//    }
+//    for(int i=0;i<mon.size();i+=3){
+//        monedas.append(new mostrarobstaculos(mon.at(i),mon.at(i+1)));
+//        monedas.last()->moverMoneda();
+//        monedas.last()->getItem()->setVel(350,600);
+//        scene->addItem(monedas.last());
+//    }
+//    for(int i=0;i<vid.size();i+=3){
+//        vida.append(new mostrarobstaculos(vid.at(i),vid.at(i+1)));
+//        vida.last()->moverVida();
+//        vida.last()->getItem()->setVel(0,0);
+//        scene->addItem(vida.last());
+
+//    }
+//    for(int i=0;i<enemi.size();i+=3){
+//        enemigofinal.append(new obstaculoGraf(enemi.at(i),enemi.at(i+1)));
+//        enemigofinal.last()->moverEnemigoFinal();
+//        enemigofinal.last()->getItem()->setVel(150,0);
+//        scene->addItem(enemigofinal.last());
+//    }
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
@@ -939,6 +1021,16 @@ void MainWindow::reiniciarMultijugador()
     borrarelementos();
     scene->setSceneRect(24,0,1000,496);
     multijugador();
+}
+
+void MainWindow::calcularPuntaje()
+{
+    if(jugador2){
+        puntaje2=distanciaLCD*2+(MonedasLCD*8);
+    }
+    else {
+        puntaje1=distanciaLCD*2+(MonedasLCD*8);
+    }
 }
 
 void MainWindow::on_actionRegresar_al_menu_triggered()
@@ -1102,24 +1194,24 @@ void MainWindow::ocultar()
 void MainWindow::ganador()
 {
     if(puntaje1<puntaje2){
-        //resultadoP->op=8;
-        //resultadoP->imaganes();
-        //resultadoP->show();
+        resultadoP->op=8;
+        resultadoP->imaganes();
+        resultadoP->show();
         //win2->play();
         MainWindow::hide();
         QTimer::singleShot(14000,this,SLOT(parar()));
-        //QTimer::singleShot(15000,resultadoP,SLOT(close()));
+        QTimer::singleShot(15000,resultadoP,SLOT(close()));
 
         reiniciar();
     }
     else {
-//        resultadoP->op=7;
-//        resultadoP->imaganes();
-//        resultadoP->show();
+        resultadoP->op=7;
+        resultadoP->imaganes();
+        resultadoP->show();
 //        win2->play();
         MainWindow::hide();
         QTimer::singleShot(14000,this,SLOT(parar()));
-//        QTimer::singleShot(15000,resultadoP,SLOT(close()));
+        QTimer::singleShot(15000,resultadoP,SLOT(close()));
 
         reiniciar();
     }
