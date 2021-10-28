@@ -20,69 +20,27 @@ void mostrarResultados::imaganes()
     if(op==1){ //SI GANO TOM EN (UNIJUGADOR)
         mostrar();
         ocultar();
-        darvalores();
-        //reorganizar();
-
-
-//        Imag.load(":/ImagenesJuego/Resultados/Ganador1.png");
-//        ui->fondo->setPixmap(Imag);
+        darvalores();;
     }
 
     if(op==2){ //SI GANO JERRY EN (UNIJUGADOR)
         mostrar();
         ocultar();
         darvalores();
-        //reorganizar();
-
-
-//        Imag.load(":/ImagenesJuego/Resultados/Ganador2.png");
-//        ui->fondo->setPixmap(Imag);
     }
+
     if(op==3){ //SI GANO TOM EN (MULTIJUGADOR)
         mostrar();
         ocultar();
         darvalores();
-        //reorganizar();
-//        Imag.load(":/ImagenesJuego/Resultados/GanoP1.png");
-//        ui->fondo->setPixmap(Imag);
+
     }
+
     if(op==4){ //SI GANO JERRY EN (MULTIJUGADOR)
         mostrar();
         ocultar();
         darvalores();
-        //reorganizar();
-//        Imag.load(":/ImagenesJuego/Resultados/GanoP2.png");
-//        ui->fondo->setPixmap(Imag);
     }
-
-}
-
-void mostrarResultados::reorganizar()
-{
-   if(op==1){
-       ui->Distancia->move(1125,272);
-       ui->Monedas->move(1130,375);
-       ui->Total->move(1120,469);
-   }
-
-    if(op==2){
-        ui->Distancia_2->move(1125,272); //x,y
-        ui->Monedas_2->move(1130,375);
-        ui->Total_2->move(1120,469);
-    }
-
-    if(op==3){
-        ui->Distancia->move(1125,272); //x,y
-        ui->Monedas->move(1130,375);
-        ui->Total->move(1120,469);
-    }
-
-    if(op==4){
-        ui->Distancia_2->move(1095,268);
-        ui->Monedas_2->move(1095,371);
-        ui->Total_2->move(1075,464);
-    }
-
 }
 
 void mostrarResultados::ocultar()
@@ -91,22 +49,43 @@ void mostrarResultados::ocultar()
         ui->Distancia_2->hide();
         ui->Monedas_2->hide();
         ui->Total_2->hide();
+        ui->Jugador_2->hide();
+        ui->ImgMoneda_2->hide();
+        ui->ImgDistancia_2->hide();
+        ui->ResTotal_2->hide();
+        ui->Jerry->hide();
+
 
     }
     if(op==2){
         ui->Distancia->hide();
         ui->Monedas->hide();
         ui->Total->hide();
+        ui->Jugador->hide();
+        ui->ImgMoneda->hide();
+        ui->ImgDistancia->hide();
+        ui->ResTotal->hide();
+        ui->Tom->hide();
     }
     if(op==3){
         ui->Distancia_2->hide();
         ui->Monedas_2->hide();
         ui->Total_2->hide();
+        ui->Jugador_2->hide();
+        ui->ImgMoneda_2->hide();
+        ui->ImgDistancia_2->hide();
+        ui->ResTotal_2->hide();
+        ui->Jerry->hide();
     }
     if(op==4){
         ui->Distancia->hide();
         ui->Monedas->hide();
         ui->Total->hide();
+        ui->Jugador->hide();
+        ui->ImgMoneda->hide();
+        ui->ImgDistancia->hide();
+        ui->ResTotal->hide();
+        ui->Tom->hide();
     }
 
 
@@ -117,35 +96,53 @@ void mostrarResultados::mostrar()
     ui->Distancia->show();
     ui->Monedas->show();
     ui->Total->show();
+    ui->Jugador->show();
+    ui->ImgMoneda->show();
+    ui->ImgDistancia->show();
+    ui->ResTotal->show();
+    ui->Tom->show();
 
     ui->Distancia_2->show();
     ui->Monedas_2->show();
     ui->Total_2->show();
+    ui->Jugador_2->show();
+    ui->ImgMoneda_2->show();
+    ui->ImgDistancia_2->show();
+    ui->ResTotal_2->show();
+    ui->Jerry->show();
 }
 
 void mostrarResultados::darvalores()
 {
+
     QString dato;
     QFile file("Guardar.txt");
     file.open(QIODevice::ReadOnly);
     dato=file.readLine();
 
     QList<QString> valores;
+
+    //QList<QString> valoresTom;
+
     int n=0;
     while(n>=0){
         n = dato.indexOf("\t");
         if(n!=0){
             valores.append(dato.left(n));
+           // valoresTom.append(dato.left(n));
         }
         dato=dato.remove(0,n+1);
     }
+
     file.close();
 
     int distancia=0,monedas=0,total=0;
 
-    distancia=valores.at(4).toInt();
+    distancia=valores.at(4).toInt()+4;
     monedas=valores.at(5).toInt();
     total=distancia*2+(monedas*8);
+
+    //TotalTom=((valoresTom.at(4).toInt()+4)+2) + ((valoresTom.at(5).toInt())*8);
 
     if(op==1){
         ui->Distancia->setText(QString::number(distancia));
@@ -164,12 +161,14 @@ void mostrarResultados::darvalores()
     }
 
     else if(op==4){
+
         ui->Distancia_2->setText(QString::number(distancia));
         ui->Monedas_2->setText(QString::number(monedas));
         ui->Total_2->setText(QString::number(total));
 
+//        ui->Distancia->setText(QString::number(valoresTom.at(4).toInt()+4));
+//        ui->Monedas->setText(QString::number(valoresTom.at(5).toInt()));
+//        ui->Total->setText(QString::number(200));
+
     }
-
 }
-
-

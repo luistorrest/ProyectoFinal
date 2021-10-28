@@ -180,7 +180,6 @@ private:
 
     void focus();
     void colision(mostrarPersonaje* a);
-    void ponerValores();
 
     mostrarResultados *resultadoP;
 

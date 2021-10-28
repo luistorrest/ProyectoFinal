@@ -25,7 +25,6 @@ public:
 
     //metodos
     void imaganes();//para saber cual opcion de resultados se escogera
-    void reorganizar();//para dar posiciones a cada elemento
     void ocultar();//oculta los items que no serán utilizados
     void mostrar();//poner en escena los resultados
     void darvalores();//enviar los valores a un arhivo

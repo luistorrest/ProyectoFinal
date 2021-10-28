@@ -894,53 +894,6 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
 
 }
-void MainWindow::ponerValores()
-{
-//    if(posX>=500){
-//        scene->setSceneRect(posX-300,0,1000,496);
-//    }
-
-
-//    for(int i=0;i<tram.size();i+=3){
-//        trampa.append(new mostrarobstaculos(tram.at(i),tram.at(i+1)));
-//        trampa.last()->moverTrampa();
-//        trampa.last()->getItem()->setVel(150,0);
-//        scene->addItem(trampa.last());
-//    }
-
-//    for(int i=0;i<raseng.size();i+=3){
-//        rasengan.append(new obstaculoGraf(raseng.at(i),raseng.at(i+1)));
-//        rasengan.last()->moverRasengan();
-//        rasengan.last()->getItem()->setVel(120,0);
-//        scene->addItem(rasengan.last());
-//    }
-
-//    for(int i=0;i<ray.size();i+=3){
-//        rayos.append(new mostrarobstaculos(ray.at(i),ray.at(i+1)));
-//        rayos.last()->moverRayos();
-//        rayos.last()->getItem()->setVel(150,0);
-//        scene->addItem(rayos.last());
-//    }
-//    for(int i=0;i<mon.size();i+=3){
-//        monedas.append(new mostrarobstaculos(mon.at(i),mon.at(i+1)));
-//        monedas.last()->moverMoneda();
-//        monedas.last()->getItem()->setVel(350,600);
-//        scene->addItem(monedas.last());
-//    }
-//    for(int i=0;i<vid.size();i+=3){
-//        vida.append(new mostrarobstaculos(vid.at(i),vid.at(i+1)));
-//        vida.last()->moverVida();
-//        vida.last()->getItem()->setVel(0,0);
-//        scene->addItem(vida.last());
-
-//    }
-//    for(int i=0;i<enemi.size();i+=3){
-//        enemigofinal.append(new obstaculoGraf(enemi.at(i),enemi.at(i+1)));
-//        enemigofinal.last()->moverEnemigoFinal();
-//        enemigofinal.last()->getItem()->setVel(150,0);
-//        scene->addItem(enemigofinal.last());
-//    }
-}
 
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
@@ -1194,7 +1147,7 @@ void MainWindow::ocultar()
 void MainWindow::ganador()
 {
     if(puntaje1<puntaje2){
-        resultadoP->op=8;
+        resultadoP->op=3;
         resultadoP->imaganes();
         resultadoP->show();
         //win2->play();
@@ -1205,7 +1158,7 @@ void MainWindow::ganador()
         reiniciar();
     }
     else {
-        resultadoP->op=7;
+        resultadoP->op=4;
         resultadoP->imaganes();
         resultadoP->show();
 //        win2->play();
