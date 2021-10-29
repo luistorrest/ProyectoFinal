@@ -1374,7 +1374,7 @@ void MainWindow::ganador()
 {
 
     if(puntaje1<puntaje2){
-        resultadoP->op=3;
+        resultadoP->op=4;
         resultadoP->imaganes();
         resultadoP->show();
         QMessageBox::information(this,tr("Felicidades"),tr("Jugador 2 has ganado!"));
@@ -1386,7 +1386,7 @@ void MainWindow::ganador()
         reiniciar();
     }
     else {
-        resultadoP->op=4;
+        resultadoP->op=3;
         resultadoP->imaganes();
         resultadoP->show();
         QMessageBox::information(this,tr("Felicidades"),tr("Jugador 1 has ganado!"));
