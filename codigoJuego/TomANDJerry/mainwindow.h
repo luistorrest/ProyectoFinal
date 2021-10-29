@@ -29,6 +29,7 @@
 #include "ui_menu.h"
 
 
+
 #define dt 0.02
 
 using namespace std;
@@ -65,6 +66,7 @@ public:
 
     bool Multiplayer=false;
     bool jugador2;
+    bool cargar;
 
     QList<float> mon;
     QList<float> vid;
@@ -160,6 +162,8 @@ private:
     QMediaPlayer* tykeSound;
     QMediaPlayer* SpykeSound;
     QMediaPlayer* muerteSound;
+    QMediaPlayer* ganarSound;
+    QMediaPlayer* errorSound;
 
 
     //contadores para la cantidad de objetos
@@ -180,6 +184,8 @@ private:
 
     void focus();
     void colision(mostrarPersonaje* a);
+    void ponerValores();
+
 
     mostrarResultados *resultadoP;
 

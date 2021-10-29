@@ -1490,6 +1490,31 @@
     <bool>true</bool>
    </property>
   </widget>
+  <widget class="QLabel" name="ganador">
+   <property name="geometry">
+    <rect>
+     <x>180</x>
+     <y>70</y>
+     <width>1101</width>
+     <height>551</height>
+    </rect>
+   </property>
+   <property name="font">
+    <font>
+     <family>Showcard Gothic</family>
+     <pointsize>72</pointsize>
+    </font>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="pixmap">
+    <pixmap resource="Imagenes.qrc">:/ImagenesJuego/Fondos/YouWin.jpg</pixmap>
+   </property>
+   <property name="scaledContents">
+    <bool>true</bool>
+   </property>
+  </widget>
   <zorder>fondo</zorder>
   <zorder>Distancia_2</zorder>
   <zorder>Monedas</zorder>
@@ -1509,6 +1534,7 @@
   <zorder>lineEdit_2</zorder>
   <zorder>Tom</zorder>
   <zorder>Jerry</zorder>
+  <zorder>ganador</zorder>
  </widget>
  <resources>
   <include location="Imagenes.qrc"/>

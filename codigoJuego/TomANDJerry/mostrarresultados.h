@@ -28,6 +28,7 @@ public:
     void ocultar();//oculta los items que no serán utilizados
     void mostrar();//poner en escena los resultados
     void darvalores();//enviar los valores a un arhivo
+    void ganador();
 
 
     bool multi=false;

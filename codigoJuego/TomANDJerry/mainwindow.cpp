@@ -72,6 +72,15 @@ MainWindow::MainWindow(QWidget *parent): QMainWindow(parent), ui(new Ui::MainWin
     muerteSound->setMedia(QUrl("qrc:/sonidos/sonidos/GameOver.mp3"));
     muerteSound->setVolume(60);
 
+    ganarSound=new QMediaPlayer();
+    ganarSound->setMedia(QUrl("qrc:/sonidos/sonidos/Ganador.mp3"));
+    ganarSound->setVolume(60);
+
+
+    errorSound=new QMediaPlayer(this);
+    errorSound->setMedia(QUrl("qrc:/sonidos/sonidos/Warning.mp3"));
+    errorSound->setVolume(80);
+
     //inicializacion de los tiempos para las vidas y las monedas
     TiempoVida=new QTimer(this);
     TiempoVida->stop();
@@ -169,6 +178,8 @@ MainWindow::~MainWindow()
     delete huesoSound;
     delete SpykeSound;
     delete muerteSound;
+    delete ganarSound;
+    delete errorSound;
 
     delete ganar;
     delete perder;
@@ -247,6 +258,74 @@ void MainWindow::on_actionReincicar_triggered()
 void MainWindow::on_actionGuardar_triggered()
 {
     click->play();
+    on_actionDetener_triggered();
+    QFile archivo;
+    QTextStream escritura;
+    QString nombreArchivo;
+    nombreArchivo=QFileDialog::getSaveFileName(this,"Guardar_Patida","C://Users//Fafoa//Desktop//Juego//Partidas Guardadas");
+    archivo.setFileName(nombreArchivo);
+    archivo.open(QIODevice::WriteOnly | QIODevice::Text);
+
+    if(!archivo.isOpen()){
+        errorSound->play();
+        QMessageBox::critical(this,"ERROR","No se pudo guardar la partida!");
+    }
+    else {
+        click->play();
+        escritura.setDevice(&archivo);
+
+        escritura<<personaje->getPersonaje()->getPx()<<"\t"
+                 <<personaje->getPersonaje()->getPy()<<"\t"
+                 <<personaje->getPersonaje()->getVx()<<"\t"
+                 <<contadorVidas<<"\t"<<distanciaLCD<<"\t"<<MonedasLCD<<"\t"<<jugador2<<"\t"<<"|"<<"\t";
+
+        for(int i=0;i<trampa.size();i++){
+            escritura<<trampa.at(i)->getItem()->getPx()<<"\t"
+                     <<trampa.at(i)->getItem()->getPy()<<"\t"
+                     <<trampa.at(i)->getItem()->getVx()<<"\t";
+
+        }
+        escritura<<"|"<<"\t";
+
+        for(int i=0;i<hueso.size();i++){
+            escritura<<hueso.at(i)->getItem()->getPx()<<"\t"
+                     <<hueso.at(i)->getItem()->getPy()<<"\t"
+                     <<hueso.at(i)->getItem()->getVx()<<"\t";
+        }
+        escritura<<"|"<<"\t";
+
+        for(int i=0;i<tyke.size();i++){
+            escritura<<tyke.at(i)->getItem()->getPx()<<"\t"
+                     <<tyke.at(i)->getItem()->getPy()<<"\t"
+                     <<tyke.at(i)->getItem()->getVx()<<"\t";
+        }
+        escritura<<"|"<<"\t";
+
+        for(int i=0;i<monedas.size();i++){
+            escritura<<monedas.at(i)->getItem()->getPx()<<"\t"
+                     <<monedas.at(i)->getItem()->getPy()<<"\t"
+                     <<monedas.at(i)->getItem()->getVx()<<"\t";
+        }
+        escritura<<"|"<<"\t";
+
+        for(int i=0;i<vida.size();i++){
+            escritura<<vida.at(i)->getItem()->getPx()<<"\t"
+                     <<vida.at(i)->getItem()->getPy()<<"\t"
+                     <<vida.at(i)->getItem()->getVx()<<"\t";
+        }
+        escritura<<"|"<<"\t";
+
+        for(int i=0;i<Spyke.size();i++){
+            escritura<<Spyke.at(i)->getItem()->getPx()<<"\t"
+                     <<Spyke.at(i)->getItem()->getPy()<<"\t"
+                     <<Spyke.at(i)->getItem()->getVx()<<"\t";
+        }
+        escritura<<"|"<<"\t";
+
+        archivo.close();
+        QMessageBox::information(this,tr("Guardado"),tr("->Partida guardada correctamente!\n"
+                                                             "->Para continuar la partida, haz click en iniciar."));
+    }
 }
 //LCDS de las vidas, distancia y monedas
 void MainWindow::on_Vida_overflow()
@@ -355,6 +434,80 @@ void MainWindow::actualizar()
         }
 
     }
+    //--------------PARA CUANDO EL PERSONAJE GANE
+    if(personaje->getPersonaje()->getPx()>=29000){
+        if(jugador2){
+            fondoSound1->stop();
+            SpykeSound->stop();
+            huesoSound->stop();
+            trampaSound->stop();
+
+            timer->stop();
+            timer2->stop();
+            TiempoTrampa->stop();
+            TiempoHueso->stop();
+            TiempoTyke->stop();
+            TiempoSpyke->stop();
+
+            TiempoMonedas->stop();
+            TiempoVida->stop();
+
+            resultadoP->op=5;
+            resultadoP->imaganes();
+            //QTimer::singleShot(820,resultadoP,SLOT(showMaximized()));
+
+            QTimer::singleShot(810,this,SLOT(ocultar()));
+
+            ganarSound->setMedia(QUrl("qrc:/MusicaJuego/You Win.mp3"));
+            ganarSound->setVolume(50);
+            ganarSound->play();
+
+            QTimer::singleShot(8000,this,SLOT(esperar()));
+            QTimer::singleShot(10000,this,SLOT(parar()));
+            //QTimer::singleShot(10200,resultadoP,SLOT(close()));
+
+
+
+        }
+        else {
+            fondoSound1->setVolume(5);
+            fondoSound2->setVolume(5);
+            huesoSound->setVolume(30);
+            trampaSound->setVolume(10);
+            SpykeSound->setVolume(30);
+
+            timer->stop();
+            timer2->stop();
+            TiempoTrampa->stop();
+            TiempoHueso->stop();
+            TiempoTyke->stop();
+            TiempoSpyke->stop();
+
+            TiempoMonedas->stop();
+            TiempoVida->stop();
+
+            resultadoP->op=9;
+            resultadoP->imaganes();
+
+            QTimer::singleShot(820,resultadoP,SLOT(showMaximized()));
+
+            QTimer::singleShot(810,this,SLOT(ocultar()));
+
+            ganarSound->setMedia(QUrl("qrc:/sonidos/sonidos/Ganador.mp3"));
+            ganarSound->setVolume(150);
+            ganarSound->play();
+
+            QTimer::singleShot(8000,this,SLOT(esperar()));
+            QTimer::singleShot(8000,this,SLOT(parar()));
+            QTimer::singleShot(8500,resultadoP,SLOT(close()));
+
+        }
+    }
+
+
+
+
+
     //---------------GUARDAR VALORES PARA RESULTADOS--------------------
     //Guardar datos en ejecucion
     fstream escritura;
@@ -895,6 +1048,55 @@ void MainWindow::colision(mostrarPersonaje *a)   //falta terminar las colisiones
 
 }
 
+void MainWindow::ponerValores()
+{
+    if(posX>=500){
+        scene->setSceneRect(posX-300,0,1000,496);
+    }
+
+
+    for(int i=0;i<tram.size();i+=3){
+        trampa.append(new mostrarobstaculos(tram.at(i),tram.at(i+1)));
+        trampa.last()->moverTrampa();
+        trampa.last()->getItem()->setVel(150,0);
+        scene->addItem(trampa.last());
+    }
+
+    for(int i=0;i<hue.size();i+=3){
+        hueso.append(new mostrarobstaculos(hue.at(i),hue.at(i+1)));
+        hueso.last()->moverHueso();
+        hueso.last()->getItem()->setVel(120,0);
+        scene->addItem(hueso.last());
+    }
+
+    for(int i=0;i<tyk.size();i+=3){
+        tyke.append(new mostrarobstaculos(tyk.at(i),tyk.at(i+1)));
+        tyke.last()->moverTyke();
+        tyke.last()->getItem()->setVel(150,0);
+        scene->addItem(tyke.last());
+    }
+    for(int i=0;i<mon.size();i+=3){
+        monedas.append(new mostrarobstaculos(mon.at(i),mon.at(i+1)));
+        monedas.last()->moverMoneda();
+        monedas.last()->getItem()->setVel(350,600);
+        scene->addItem(monedas.last());
+    }
+    for(int i=0;i<vid.size();i+=3){
+        vida.append(new mostrarobstaculos(vid.at(i),vid.at(i+1)));
+        vida.last()->moverVida();
+        vida.last()->getItem()->setVel(0,0);
+        scene->addItem(vida.last());
+
+    }
+    for(int i=0;i<spyk.size();i+=3){
+        Spyke.append(new mostrarobstaculos(spyk.at(i),spyk.at(i+1)));
+        Spyke.last()->moverSpyke();
+        Spyke.last()->getItem()->setVel(150,0);
+        scene->addItem(Spyke.last());
+    }
+
+}
+
 void MainWindow::keyPressEvent(QKeyEvent *event)
 {
     if(event->key()==Qt::Key_W){
@@ -921,11 +1123,14 @@ void MainWindow::keyPressEvent(QKeyEvent *event)
 }
 void MainWindow::reiniciar()
 {
-
+    cargar=false;
     timer->stop();
     timer2->stop();
 
     fondoSound1->stop();
+    fondoSound2->stop();
+    ganarSound->stop();
+
     TiempoTrampa->stop();
     TiempoHueso->stop();
     TiempoTyke->stop();
@@ -957,6 +1162,8 @@ void MainWindow::reiniciarMultijugador()
     timer2->stop();
 
     fondoSound1->stop();
+    fondoSound2->stop();
+    ganarSound->stop();
 
     TiempoTrampa->stop();
     TiempoHueso->stop();
@@ -990,6 +1197,8 @@ void MainWindow::on_actionRegresar_al_menu_triggered()
 {
     click->play();
     fondoSound1->stop();
+    fondoSound2->stop();
+    ganarSound->stop();
 
     reiniciar();
     Menu* menu;
@@ -1047,17 +1256,35 @@ void MainWindow::borrarelementos()
 //metodos para el jugador y multijugador
 void MainWindow::unjugador()
 {
-    if(jugador2){
-        personaje=new mostrarPersonaje(0,0);
-        personaje->volar2();
-        scene->addItem(personaje);
-        personaje->getPersonaje()->setVx(velocidadNivel1);
+    if(cargar==true){
+        ponerValores();
+        if(jugador2){
+            personaje=new mostrarPersonaje(posX,posY);
+            personaje->volar2();
+            scene->addItem(personaje);
+            personaje->getPersonaje()->setVx(velocidadNivel1);
+        }
+        else{
+            personaje=new mostrarPersonaje(posX,posY);
+            personaje->volar1();
+            scene->addItem(personaje);
+            personaje->getPersonaje()->setVx(velocidadNivel1);
+        }
     }
     else{
-        personaje=new mostrarPersonaje(0,0);
-        personaje->volar1();
-        scene->addItem(personaje);
-        personaje->getPersonaje()->setVx(velocidadNivel1);
+        if(jugador2){
+            personaje=new mostrarPersonaje(0,0);
+            personaje->volar2();
+            scene->addItem(personaje);
+            personaje->getPersonaje()->setVx(velocidadNivel1);
+        }
+        else{
+            personaje=new mostrarPersonaje(0,0);
+            personaje->volar1();
+            scene->addItem(personaje);
+            personaje->getPersonaje()->setVx(velocidadNivel1);
+        }
+
     }
 
 }

@@ -53,6 +53,10 @@
         <file>ImagenesJuego/Tyke/Spykebravo.png</file>
         <file>ImagenesJuego/Hueso/Hueso3.png</file>
         <file>ImagenesJuego/Otros/EnemigosAll.png</file>
+        <file>ImagenesJuego/Otros/botones.png</file>
+        <file>ImagenesJuego/Otros/como se juega.png</file>
+        <file>ImagenesJuego/Otros/fondomenu1.png</file>
+        <file>ImagenesJuego/Fondos/YouWin.jpg</file>
     </qresource>
     <qresource prefix="/sonidos"/>
 </RCC>

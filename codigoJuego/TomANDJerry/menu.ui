@@ -464,8 +464,8 @@
    <string>Menu</string>
   </property>
   <property name="windowIcon">
-   <iconset>
-    <normaloff>:/ImagenesJuego/Extras/B1.png</normaloff>:/ImagenesJuego/Extras/B1.png</iconset>
+   <iconset resource="Imagenes.qrc">
+    <normaloff>:/ImagenesJuego/Otros/fondomenu1.png</normaloff>:/ImagenesJuego/Otros/fondomenu1.png</iconset>
   </property>
   <property name="animated">
    <bool>true</bool>
@@ -3153,7 +3153,7 @@
      <x>0</x>
      <y>0</y>
      <width>1422</width>
-     <height>29</height>
+     <height>34</height>
     </rect>
    </property>
    <property name="font">

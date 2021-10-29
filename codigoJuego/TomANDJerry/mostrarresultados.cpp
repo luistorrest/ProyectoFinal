@@ -41,6 +41,12 @@ void mostrarResultados::imaganes()
         ocultar();
         darvalores();
     }
+    if(op==5){//para mostrar el ganador
+        mostrar();
+        ocultar();
+        darvalores();
+
+    }    
 }
 
 void mostrarResultados::ocultar()
@@ -54,7 +60,7 @@ void mostrarResultados::ocultar()
         ui->ImgDistancia_2->hide();
         ui->ResTotal_2->hide();
         ui->Jerry->hide();
-
+        ui->ganador->hide();
 
     }
     if(op==2){
@@ -66,6 +72,8 @@ void mostrarResultados::ocultar()
         ui->ImgDistancia->hide();
         ui->ResTotal->hide();
         ui->Tom->hide();
+        ui->ganador->hide();
+
     }
     if(op==3){
         ui->Distancia_2->hide();
@@ -76,6 +84,8 @@ void mostrarResultados::ocultar()
         ui->ImgDistancia_2->hide();
         ui->ResTotal_2->hide();
         ui->Jerry->hide();
+        ui->ganador->hide();
+
     }
     if(op==4){
         ui->Distancia->hide();
@@ -86,8 +96,29 @@ void mostrarResultados::ocultar()
         ui->ImgDistancia->hide();
         ui->ResTotal->hide();
         ui->Tom->hide();
-    }
+        ui->ganador->hide();
 
+    }
+    if(op==5){
+        ui->Distancia->hide();
+        ui->Monedas->hide();
+        ui->Total->hide();
+        ui->Jugador->hide();
+        ui->ImgMoneda->hide();
+        ui->ImgDistancia->hide();
+        ui->ResTotal->hide();
+        ui->Tom->hide();
+
+        ui->Distancia_2->hide();
+        ui->Monedas_2->hide();
+        ui->Total_2->hide();
+        ui->Jugador_2->hide();
+        ui->ImgMoneda_2->hide();
+        ui->ImgDistancia_2->hide();
+        ui->ResTotal_2->hide();
+        ui->Jerry->hide();
+
+    }
 
 }
 
@@ -110,6 +141,8 @@ void mostrarResultados::mostrar()
     ui->ImgDistancia_2->show();
     ui->ResTotal_2->show();
     ui->Jerry->show();
+
+    ui->ganador->show();
 }
 
 void mostrarResultados::darvalores()
@@ -172,3 +205,5 @@ void mostrarResultados::darvalores()
 
     }
 }
+
+
