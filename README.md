@@ -8,6 +8,7 @@ Diseño: En esta carpeta se encuentra el informe en el que se describe la implem
 codigoJuego: Esta carpeta contiene el proyecto desarrallado en el lenguaje C++ utilizando Qt creator, contiene todos los recursos como imágenes y sonidos utilizados, además del código y todos los archivos necesarios para el funcionamiento.
 
 Trailer del juego: https://youtu.be/X6oTXL1hiU4
+
 Demostración y presentación del juego: https://youtu.be/ovLaWc2mcGI
 
 
