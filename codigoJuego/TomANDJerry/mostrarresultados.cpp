@@ -155,27 +155,24 @@ void mostrarResultados::darvalores()
 
     QList<QString> valores;
 
-    //QList<QString> valoresTom;
-
     int n=0;
+
     while(n>=0){
         n = dato.indexOf("\t");
         if(n!=0){
             valores.append(dato.left(n));
-           // valoresTom.append(dato.left(n));
         }
         dato=dato.remove(0,n+1);
     }
 
     file.close();
 
+
     int distancia=0,monedas=0,total=0;
 
     distancia=valores.at(4).toInt()+4;
     monedas=valores.at(5).toInt();
     total=distancia*2+(monedas*8);
-
-    //TotalTom=((valoresTom.at(4).toInt()+4)+2) + ((valoresTom.at(5).toInt())*8);
 
     if(op==1){
         ui->Distancia->setText(QString::number(distancia));
@@ -194,15 +191,9 @@ void mostrarResultados::darvalores()
     }
 
     else if(op==4){
-
         ui->Distancia_2->setText(QString::number(distancia));
         ui->Monedas_2->setText(QString::number(monedas));
         ui->Total_2->setText(QString::number(total));
-
-//        ui->Distancia->setText(QString::number(valoresTom.at(4).toInt()+4));
-//        ui->Monedas->setText(QString::number(valoresTom.at(5).toInt()));
-//        ui->Total->setText(QString::number(200));
-
     }
 }
 
